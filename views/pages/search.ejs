@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results...</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/search.css" />
+</head>
+
+<body>
+
+  <%- include('../partials/header') %> <!-- Include header -->
+
+    <div class="search-page" style="padding: 5px 20px;">
+      <h2>Search Results for "<%= query %>"</h2>
+
+      <% if (results.length===0) { %>
+        <p>No results found.</p>
+        <% } else { %>
+          <div class="search-results">
+            <% results.forEach(product=> { %>
+              <div class="srch_cont1">
+                <div class="srch_img1">
+                  <img src="<%= product.image %>" alt="<%= product.name %>" />
+                </div>
+                <div class="srch_para1">
+                  <p>
+                    <%= product.name %>
+                  </p>
+                  <p>By <%= product.manufacturer %>
+                  </p>
+                  <p>
+                    <%= product.quantity %>
+                  </p>
+                  <div class="srch_bar1">
+                    <span><strong>₹<%= product.price.toFixed(2) %>*</strong></span>
+                    <span>MRP <strike>₹<%= product.mrp.toFixed(2) %></strike></span>
+                    <span class="srch_bar12">Save <%= product.discount %>%</span>
+                    <span>
+                      <button type="button" onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+          <% } %>
+    </div>
+
+    <br>
+    <hr>
+    <%- include('../partials/footer') %> <!-- Include footer -->
+
+      <script>
+        function addToCart(productId) {
+          let quantity = 1;
+          fetch('/carts/add-to-cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId, quantity })
+          })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+      </script>
+
+
+</body>
+
+</html>

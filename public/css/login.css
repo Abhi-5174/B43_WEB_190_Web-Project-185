@@ -1,0 +1,197 @@
+* {
+  overflow-x: hidden;
+  box-sizing: border-box;
+  font-family: Open Sans, sans-serif !important;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 100vw;
+  height: 95vh;
+  margin-left: 0;
+}
+
+.lohead {
+  width: 90%;
+  height: 90px;
+  background-color: rgb(16, 132, 126);
+}
+
+.head>img {
+  width: 40%;
+  /* padding-top: 20px; */
+  display: flex;
+  background-color: rgb(16, 132, 126);
+  height: 40px;
+  padding-left: 4%;
+}
+
+.headright>img {
+  margin-left: 250px;
+  height: 70px;
+  /* margin-top: -40px; */
+  width: 130px;
+  float: left;
+}
+
+.login {
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  width: 80%;
+  font-size: 24px;
+  color: rgb(78, 66, 66);
+}
+
+.go {
+  margin-top: 30px;
+  width: 90%;
+  padding: 10px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  color: white;
+  background-color: teal;
+  margin-bottom: 15px;
+  border: none;
+}
+
+#entry input {
+  text-align: center;
+  width: 90%;
+  margin-bottom: 20px;
+  font-size: 15px;
+  height: 35px;
+  border-radius: 5px;
+  border: 0.5px solid rgb(75, 74, 74);
+}
+
+.foot {
+  text-align: center;
+  font-size: 15px;
+  color: rgb(105, 97, 97);
+  width: 100%;
+}
+
+.foot>a {
+  color: teal;
+  font-size: 15px;
+}
+
+.otpflex {
+  max-width: 90%;
+  display: flex;
+  flex-direction: row;
+}
+
+.otpflex>input {
+  width: 20%;
+  height: 2.5rem;
+  margin: 5%;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid rgb(136, 151, 162);
+}
+
+.resendflex {
+  max-width: 90%;
+  color: rgb(30, 139, 134);
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.social-login {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 15px;
+}
+
+.google-btn,
+.facebook-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.google-btn img,
+.facebook-btn img {
+  margin-right: 10px;
+}
+
+.google-btn,
+.facebook-btn {
+  color: black;
+  width: 180px;
+  height: fit-content;
+  border: 1px solid grey;
+}
+
+.google-btn:hover,
+.facebook-btn:hover {
+  background-color: grey;
+}
+
+.divider {
+  text-align: center;
+  font-size: 14px;
+  margin: 10px 0;
+  color: #999;
+}
+
+/* .go {
+  width: 100%;
+  padding: 12px;
+  background-color: #0f8a65;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+} */
+
+.go:hover {
+  background-color: #0d6a52;
+}
+
+/* Popup message */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.popup button {
+  background-color: teal;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.popup button:hover {
+  background-color: darkslategray;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body class="bg-light">
+
+    <header
+        style="display: flex; justify-content: space-between; align-items: center; top: 0; color: teal; background-color: teal;">
+        <a class="head" href="/">
+            <img style="background-color: teal;" src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png"
+                alt="logo" />
+        </a>
+        <div class="headright">
+            <img style="width: 180px; height: 100px;" src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg"
+                alt="logo2" />
+        </div>
+    </header><br>
+
+    <div class="profile-container">
+
+        <!-- Profile Picture -->
+        <div class="profile-container">
+            <!-- Profile Image Section -->
+            <div class="profile-pic-container">
+                <!-- Large Image Preview (Hidden by Default) -->
+                <div id="imagePreviewModal" class="image-preview-modal">
+                    <span class="close-preview">&times;</span>
+                    <img id="previewImage"
+                        src="<%= user.photo ? `/uploads/${user.photo}` : '/images/default-profile.png' %>"
+                        alt="Profile Image">
+                </div>
+
+                <!-- Profile Picture -->
+                <img id="profilePic" class="profile-pic"
+                    src="<%= user.photo ? `/uploads/${user.photo}` : '/images/default-profile.png' %>"
+                    alt="Profile Picture">
+
+                <!-- Edit Icon (Opens File Upload) -->
+                <label for="fileInput" class="edit-icon">
+                    <i class="fas fa-pencil-alt"></i>
+                </label>
+            </div>
+
+            <!-- Update Form -->
+            <form id="updateProfilePicForm" action="/users/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="photo" accept="image/*" hidden>
+                <button type="submit" id="saveBtn" class="save-btn" style="display: none;">Save</button>
+            </form>
+        </div>
+
+        <h2>
+            <%= user.name %>
+        </h2>
+        <p><i class="fas fa-envelope"></i>
+            <%= user.email %>
+        </p>
+
+        <% if (user.address && (user.address.street || user.address.city || user.address.state || user.address.zip)) {
+            %>
+            <p><i class="fas fa-map-marker-alt"></i>
+                <%= user.address.street ? user.address.street + ", " : "" %>
+                    <%= user.address.city ? user.address.city + ", " : "" %>
+                        <%= user.address.state ? user.address.state + " - " : "" %>
+                            <%= user.address.zip ? user.address.zip : "" %>
+            </p>
+            <% } else { %>
+                <p>No address added</p>
+                <% } %>
+
+                    <button class="btn btn-primary btn-sm" onclick="toggleEditForm()">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                    <a href="/users/logout" class="btn btn-danger btn-sm">Logout</a>
+
+                    <!-- Edit Profile Form -->
+                    <form id="editProfileForm" class="edit-form mt-3" method="POST" action="/users/update-profile">
+                        <input type="text" class="form-control mb-2" name="name" value="<%= user.name %>" required>
+                        <input type="email" class="form-control mb-2" name="email" value="<%= user.email %>" required>
+
+                        <input type="text" class="form-control mb-2" name="street" placeholder="Street"
+                            value="<%= user.address ? user.address.street : '' %>">
+                        <input type="text" class="form-control mb-2" name="city" placeholder="City"
+                            value="<%= user.address ? user.address.city : '' %>">
+                        <input type="text" class="form-control mb-2" name="state" placeholder="State"
+                            value="<%= user.address ? user.address.state : '' %>">
+                        <input type="text" class="form-control mb-2" name="zip" placeholder="Zip Code"
+                            value="<%= user.address ? user.address.zip : '' %>">
+
+                        <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
+                    </form>
+
+                    <!-- Profile Picture Upload Form (Hidden Input) -->
+                    <form id="uploadProfilePicForm" method="POST" action="/users/upload" enctype="multipart/form-data">
+                        <input type="file" id="profileInput" name="photo" accept="image/*" hidden
+                            onchange="previewImage(event)">
+                        <button type="submit" id="uploadBtn" class="btn btn-info btn-sm mt-2"
+                            style="display: none;">Upload</button>
+                    </form>
+    </div>
+
+    <!-- Footer -->
+    <%- include("../partials/footer") %>
+
+        <script src="/js/profile.js"></script>
+
+</body>
+
+</html>

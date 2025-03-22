@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    PharmEasy: Online Pharmacy & Medical Store in India | 5M+ ... pharmeasy.in
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="/css/add_cart.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <%- include('../partials/header') %>
+
+    <!-- add cart -->
+    <main class="divide">
+      <section class="add_cart1">
+        <img
+          src="https://cdn01.pharmeasy.in/dam/products/064425/ecosprin-75mg-strip-of-14-tablets-front-2-1607336671.jpg?dim=240x240&dpr=1.25&q=100"
+          alt="" id="slide" />
+        <ul class="navigation">
+          <li>
+            <img
+              src="https://cdn01.pharmeasy.in/dam/products/064425/ecosprin-75mg-strip-of-14-tablets-box-front-1-1607336525.jpg?dim=100x80&dpr=1.25&q=100"
+              alt="" onclick="slideImg('slide',this.src)" id="img1" />
+          </li>
+          <li>
+            <img
+              src="https://cdn01.pharmeasy.in/dam/products/064425/ecosprin-75mg-strip-of-14-tablets-front-2-1607336671.jpg?dim=100x80&dpr=1.25&q=100"
+              alt="" onclick="slideImg('slide',this.src)" id="img2" />
+          </li>
+          <li>
+            <img
+              src="https://cdn01.pharmeasy.in/dam/products/064425/ecosprin-75mg-strip-of-14-tablets-combo-3-1607336476.jpg?dim=100x80&dpr=1.25&q=100"
+              alt="" onclick="slideImg('slide',this.src)" id="img3" />
+          </li>
+        </ul>
+      </section>
+      <div class="add_cart2">
+        <h2 id="tabname">Ecosprin 75mg strip of 14 tablets</h2>
+        <p id="tabcompany">By USV PVT LTD</p>
+        <h5 class="p10" id="stock">In Stock</h5>
+        <div class="add_insite">
+          <h2 id="actual">₹4.13*</h2>
+          <p>MRP</p>
+          <p class="p2" id="original">₹4.86</p>
+          <h5 id="taboff">15% OFF</h5>
+        </div>
+        <h6>Inclusive of all taxes</h6>
+        <button type="button" onclick="cartme()" id="carted">
+          Add To Cart
+        </button>
+      </div>
+      <div class="add_cart3">
+        <h5 id="showcart">1 item in cart</h5>
+        <button type="button" onclick="(location.href='cart.html')">
+          View Cart
+        </button>
+      </div>
+    </main>
+    <div id="getsome"></div>
+    <script>
+      function slideImg(id, source) {
+        document.getElementById(id).src = source;
+      }
+    </script>
+
+    <!-- Footer -->
+    <hr>
+    <%- include('../partials/footer') %>
+
+</body>
+
+</html>

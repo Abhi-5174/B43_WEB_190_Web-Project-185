@@ -1,0 +1,35 @@
+<!-- prescriptions -->
+<div class="refer">
+    <div class="ref_con" style="border: 2px solid grey;">
+        <div class="btn_ref" onclick="x1()">
+            <p>❌</p>
+        </div>
+        <div class="pre_1">
+            <div class="first_pre">
+                <h2>Don't have a prescriptions?</h2>
+                <h4 style="padding: 5px; height: fit-content;">Don't worry!</h4>
+            </div>
+            <div class="img_pre">
+                <img src="https://assets.pharmeasy.in/web-assets/dist/6e51a3f7.svg" alt="" />
+            </div>
+        </div>
+        <div class="pre_2">
+            <p>Follow these steps:</p>
+            <p>1.Add medicines to your cart</p>
+            <p>2.Select FREE Doctor consultation at checkout</p>
+            <p>---------------------OR---------------------</p>
+            <p>Call us at +91 99929 99929 and directly place your order</p>
+        </div>
+    </div>
+</div>
+
+<!-- prescription script -->
+<script>
+    document.getElementById("useme12").addEventListener("click", function () {
+      document.querySelector(".refer").style.display = "block";
+    });
+
+    function x1() {
+      document.querySelector(".refer").style.display = "none";
+    }
+  </script>

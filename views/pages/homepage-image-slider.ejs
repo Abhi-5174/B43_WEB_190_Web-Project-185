@@ -1,0 +1,18 @@
+<div id="cont"></div>
+
+<script>
+    let img = [
+        "https://cms-contents.pharmeasy.in/banner/fcf06e6cf90-STAYHOMEDWEB.jpg?dim=1440x0&dpr=1.25&q=100",
+        "https://cms-contents.pharmeasy.in/banner/3b30799ae78-COVIDFREE8JUNE.jpg?dim=1440x0&dpr=1.25&q=100",
+        "https://cms-contents.pharmeasy.in/banner/fef1ef3c06a-DWEBCOVID.jpg?dim=1440x0&dpr=1.25&q=100",
+    ];
+    var i = -1;
+    setInterval(function () {
+        i++;
+        if (i == img.length) {
+            i = 0;
+        }
+        let cont = document.getElementById("cont");
+        cont.innerHTML = `<img src=${img[i]} alt="img${i}">`;
+    }, 2000);
+</script>

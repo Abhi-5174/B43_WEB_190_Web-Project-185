@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <link rel="stylesheet" href="/css/signup.css">
+</head>
+
+<body>
+  <header>
+    <div class="head">
+      <img src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png" alt="logo" />
+    </div>
+    <div class="headright">
+      <img src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg" alt="logo2" />
+    </div>
+  </header>
+
+  <!-- Error Popup -->
+  <div id="error-popup" class="popup">
+    <p id="popup-message"></p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <div class="login">
+    <p>Create Your Account</p>
+  </div>
+
+  <!-- Signup Form -->
+  <form id="signupForm" action="/users/signup" method="POST">
+    <!-- Name -->
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your Name" required minlength="3" maxlength="50">
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+
+    <!-- Password with Toggle -->
+    <label for="password">Password</label>
+    <div class="password-container">
+      <input type="password" id="password" name="password" placeholder="Enter Password" required minlength="6">
+      <span id="togglePassword">👁️</span>
+    </div>
+
+    <!-- Password with Toggle -->
+    <label for="confirmpassword">Confirm Password</label>
+    <div class="password-container">
+      <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required
+        minlength="6">
+      <span id="togglePasswordConfirm">👁️</span>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="go">Create Account</button>
+  </form>
+
+  <!-- Already have an account? -->
+  <div class="foot">
+    Already have an account? <a href="/users/login">Login</a>
+  </div>
+
+  <!-- OR Divider -->
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <!-- Social Signup -->
+  <div class="social-login">
+    <button class="google-btn" onclick="location.href='/auth/google'">
+      <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" width="20px" alt="Google">
+      Sign up with Google
+    </button>
+    <button class="facebook-btn" onclick="location.href='/auth/facebook'">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" width="20px"
+        alt="Facebook">
+      Sign up with Facebook
+    </button>
+  </div>
+
+  <!-- Terms & Privacy -->
+  <div class="foot">
+    By clicking Sign Up, you agree to our <a href="/privacy-policy">Privacy Policy</a>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  // Toggle Password Visibility
+  document.getElementById("togglePassword").addEventListener("click", function () {
+    const passwordField = document.getElementById("password");
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      this.innerText = "🙈"; // Hide icon
+    } else {
+      passwordField.type = "password";
+      this.innerText = "👁️"; // Show icon
+    }
+  });
+
+  document.getElementById("togglePasswordConfirm").addEventListener("click", function () {
+    const passwordField = document.getElementById("confirmpassword");
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      this.innerText = "🙈"; // Hide icon
+    } else {
+      passwordField.type = "password";
+      this.innerText = "👁️"; // Show icon
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Function to show popup
+    function showPopup(message) {
+      document.getElementById("popup-message").innerText = message;
+      document.getElementById("error-popup").style.display = "block";
+    }
+
+    // Function to close popup
+    function closePopup() {
+      document.getElementById("error-popup").style.display = "none";
+      // Remove error parameter from URL after closing popup
+      const url = new URL(window.location);
+      url.searchParams.delete("error");
+      window.history.replaceState({}, document.title, url);
+    }
+
+    // Attach event listener to close button
+    document.querySelector("#error-popup button").addEventListener("click", closePopup);
+
+    // Check if an error message exists in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage = urlParams.get("error");
+    if (errorMessage) {
+      showPopup(decodeURIComponent(errorMessage));
+    }
+
+    // Form validation
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmpassword").value.trim();
+
+      // Validate Name
+      if (name.length < 3 || name.length > 50) {
+        showPopup("Name must be between 3 and 50 characters.");
+        event.preventDefault();
+        return;
+      }
+
+      // Validate Email
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        showPopup("Please enter a valid email address.");
+        event.preventDefault();
+        return;
+      }
+
+      // Validate Password Length
+      if (password.length < 6) {
+        showPopup("Password must be at least 6 characters.");
+        event.preventDefault();
+        return;
+      }
+
+      // Validate Confirm Password
+      if (password !== confirmPassword) {
+        showPopup("Passwords do not match.");
+        event.preventDefault();
+        return;
+      }
+    });
+  });
+</script>

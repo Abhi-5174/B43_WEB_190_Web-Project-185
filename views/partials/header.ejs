@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="/css/homepage.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
+
+<header>
+  <div id="header1">
+
+    <!-- Logo -->
+    <img style="cursor: pointer;" src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png" alt="logo"
+      onclick="(location.href ='/')" />
+
+    <!-- Search-bar -->
+    <div class="select">
+      <p id="pinhere">Select Pincode</p>
+      <img src="https://image.flaticon.com/icons/png/128/25/25243.png" alt="" id="useme1234" />
+
+      <div>
+        <input type="text" placeholder="Search for Medicines / Healthcare Products" class="Search" id="search1234" />
+      </div>
+      <a class="search"><img src="https://image.flaticon.com/icons/png/128/2089/2089805.png" alt="" /></a>
+    </div>
+
+    <!-- Prescription-box -->
+    <div class="headerleft" id="useme12">
+      Don't have a prescriptions?
+      <br />
+      Get Started
+      <img src="https://image.flaticon.com/icons/png/128/44/44571.png" alt="" />
+    </div>
+
+    <div id="profileButton"
+      style="display: flex; align-items: center; justify-content: center; border: 2px solid black; width: 45px; height: 45px; border-radius: 50%; margin-left: 20px; cursor: pointer;"
+      disabled="<%= user ? false : true %>">
+
+      <img style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
+        src="<%= user && user.photo ? `/uploads/${user.photo}` : '/images/default-profile.png' %>"
+        alt="User-Profile-Image" onerror="this.src='/images/default-profile.png';">
+    </div>
+  </div>
+
+  <div id="header2">
+    <div class="downhead">
+      <span><a href="/others/view_cart" style="color: white">Order Medicines</a></span>
+      <span><a href="/others/hcareProduct" style="color: white">Healthcare Products</a></span>
+      <a href="/others/diagnose" style="color: white">Diagnostic Tests</a>
+    </div>
+    <div class="righthead" id="rit">
+      <a id="nav-links" href="/users/offer" style="text-decoration: none;">
+        <img src="https://assets.pharmeasy.in/web-assets/dist/275c07e1.svg" alt="" />
+        <p id="makemeuser">Offers</p>
+      </a>
+      <a id="nav-links" href="<%= user ? '/users/logout' : '/users/login' %>" style="text-decoration: none;">
+        <img src="https://assets.pharmeasy.in/web-assets/dist/5eb42971.svg" />
+        <p id="makemeuser">
+          <%= user ? "Logout" : "Login/Signup" %>
+        </p>
+      </a>
+      <!-- <p id="useruser">User</p> -->
+      <div id="nav-links">
+        <img src="https://assets.pharmeasy.in/web-assets/dist/21b0b5ba.svg" alt="" onclick="(location.href='/carts')" />
+        <p><a href="/carts" style="color: white">Cart</a></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById("search1234").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      const query = this.value.trim();
+      if (query.length > 1) {
+        window.location.href = `/search?q=${query}`;
+      }
+    }
+  });
+
+  document.getElementById("profileButton").addEventListener("click", function () {
+    const isUser = JSON.parse(`<%- JSON.stringify(user || null) %>`);
+    if (isUser) {
+      window.location.href = "/users/profile";
+    }
+  });
+</script>
+
+<!-- popup's -->
+<%- include('prescription') %>

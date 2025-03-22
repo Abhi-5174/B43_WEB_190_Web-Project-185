@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PharmEasy - Your Cart</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="/css/cart.css" />
+  <link rel="stylesheet" href="/css/cartitem.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <%- include('../partials/header') %>
+
+    <div class="cart-container">
+      <div style="margin-left: 250px">
+        <h1>Cart</h1>
+      </div>
+
+      <!-- Empty Cart Message -->
+      <% if (!cart || cart.length===0) { %>
+        <div id="carter">
+          <div class="cart_box">
+            <div class="cart_box1">
+              <img src="https://assets.pharmeasy.in/web-assets/dist/8bfde66a.svg" alt="" />
+              <p>Flat 15% off</p>
+              <img src="https://assets.pharmeasy.in/web-assets/dist/adb9b646.svg" alt="" />
+              <p>1 Lakh+Products</p>
+              <img src="https://assets.pharmeasy.in/web-assets/dist/9279f530.svg" alt="" />
+              <p>Easy Return</p>
+            </div>
+            <div class="cart_box2">
+              <p>Search for Medicines/Healthcare Products</p>
+            </div>
+            <div class="cart_box3">
+              <p>Select Pincode</p>
+              <img src="https://image.flaticon.com/icons/png/128/25/25243.png" alt="" />
+              <div></div>
+              <input type="text" placeholder="e.g. Ecosprin, Telma or Colgate" class="Search" />
+              <a class="search" href="#"><img src="https://image.flaticon.com/icons/png/128/2089/2089805.png"
+                  alt="" /></a>
+            </div>
+          </div>
+          <div class="cart_box_side">
+            <h2>
+              Your Cart is <br />
+              Empty
+            </h2>
+            <img src="/images/bb14593e.svg" onerror="this.src='/images/bb14593e.svg'" alt="Empty-Cart" />
+          </div>
+        </div>
+        <% } else { %>
+
+          <!-- Cart Items -->
+
+          <div class="cart-item">
+            <% cart.forEach(item => { %>
+              <div class="cart-item-img">
+                <img src="<%= item.product.image %>" alt="<%= item.product.name %>">
+              </div>
+              <div class="cart-item-info">
+                <h2>
+                  <%= `${item.product.name}` %>
+                </h2>
+                <p class="manufacturer">By <%= item.product.manufacturer %>
+                </p>
+                <p class="quantity">Quantity: 
+                  <select class="quantity-select" data-id="<%= item.product._id %>">
+                    <% for (let i = 1; i <= 10; i++) { %>
+                      <option value="<%= i %>" <%= item.quantity === i ? "selected" : "" %>><%= i %></option>
+                    <% } %>
+                  </select>
+                </p>
+                <p class="price">Price: ₹<%= item.product.price %>
+                </p>
+                <p class="mrp">MRP: <strike>₹<%= item.product.mrp %></strike></p>
+                <p class="discount">Save <%= item.product.discount %>%</p>
+              </div>
+              <div class="cart-item-actions">
+                <button class="remove-btn" onclick="removeFromCart('<%= item.product._id %>')">
+                  <i class="fa fa-trash"></i> Remove
+                </button>
+              </div>
+              <% }) %>
+          </div>
+
+          <!-- Cart Summary -->
+          <div class="cart-summary">
+            <h2>Order Summary</h2>
+            <p><strong>Total Items:</strong>
+              <%= cart.length %>
+            </p>
+            <p><strong>Total Price:</strong> ₹<%= cart.reduce((sum, item)=> sum + item.product.price, 0) %></p>
+            <% if (cart.length> 0) { %>
+              <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+              <% } %>
+          </div>
+
+
+          <% } %>
+
+    </div>
+
+    <!-- Footer -->
+    <hr>
+    <%- include('../partials/footer') %>
+
+</body>
+
+</html>
