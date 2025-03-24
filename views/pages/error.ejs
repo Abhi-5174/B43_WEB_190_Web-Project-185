@@ -1,59 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something went wrong...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something went wrong...</title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 </head>
+
 <body>
-    <%- include("../partials/header") %>
 
-<div class="error-page">
-  <div class="error-container">
-    <h1>Oops! Something went wrong 😢</h1>
-    <p class="error-message"><%= errorMessage %></p>
-    <a href="<%= `${previous_url}` || '/' %>" class="back-home">Go Back</a>
-  </div>
-</div>
+  <!-- Header -->
+  <%- include("../partials/header") %>
 
-<%- include("../partials/footer") %>
+    <div class="error-page">
+      <div class="error-container">
+        <h1>Oops! Something went wrong 😢</h1>
+        <p class="error-message">
+          <%= errorMessage %>
+        </p>
+        <a href="<%= `${previous_url}` || '/' %>" class="back-home">Go Back</a>
+      </div>
+    </div>
 
-<style>
-  .error-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    text-align: center;
-  }
-  .error-container {
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    background: #fff;
-  }
-  h1 {
-    color: #d9534f;
-    font-size: 24px;
-  }
-  .error-message {
-    color: #333;
-    font-size: 18px;
-    margin: 15px 0;
-  }
-  .back-home {
-    text-decoration: none;
-    color: white;
-    background: #007bff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    display: inline-block;
-  }
-  .back-home:hover {
-    background: #0056b3;
-  }
-</style>
+    <%- include("../partials/footer") %>
+
+      <style>
+        .error-page {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80%;
+          height: fit-content;
+          min-height: 400px;
+          text-align: center;
+        }
+
+        .error-container {
+          max-width: 500px;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+          background: #fff;
+        }
+
+        h1 {
+          color: #d9534f;
+          font-size: 24px;
+        }
+
+        .error-message {
+          color: #333;
+          font-size: 18px;
+          margin: 25px 0;
+        }
+
+        .back-home {
+          text-decoration: none;
+          color: white;
+          background: #007bff;
+          padding: 10px 15px;
+          border-radius: 5px;
+          display: inline-block;
+        }
+
+        .back-home:hover {
+          background: #0056b3;
+        }
+      </style>
 
 </body>
+
 </html>

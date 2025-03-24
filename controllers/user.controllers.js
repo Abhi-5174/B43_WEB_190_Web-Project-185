@@ -1,14 +1,10 @@
+const path = require("path");
+
 const User = require("../models/User");
+const deleteImage = require("../utils/fileUtils");
+const Pincode = require("../models/Pincode");
 
 module.exports.uploadPhoto = async (req, res, next) => {
-  if (!req.file) {
-    return res.render("pages/error", {
-      errorMessage: "No file uploaded!",
-      user: req.user,
-      previous_url: "/users/profile",
-    });
-  }
-
   if (!req.user)
     return res.redirect("/users/login", {
       showPopup: true,
@@ -18,6 +14,17 @@ module.exports.uploadPhoto = async (req, res, next) => {
     });
 
   try {
+    const pinocdes = await Pincode.find();
+
+    if (!req.file) {
+      return res.render("pages/error", {
+        errorMessage: "No file uploaded!",
+        user: req.user,
+        previous_url: "/users/profile",
+        pinocdes,
+      });
+    }
+
     req.user.photo = req.file.filename;
     await req.user.save();
 
@@ -25,6 +32,28 @@ module.exports.uploadPhoto = async (req, res, next) => {
   } catch (error) {
     req.previous_url = "/users/profile";
     next(error);
+  }
+};
+
+module.exports.deleteProfileImage = async (req, res) => {
+  try {
+    const user = req.user;
+    if (!user || !user.photo) return res.redirect("/users/profile");
+
+    if (user.photo) {
+      const imagePath = path.join(__dirname, "..", "public", user.photo);
+
+      deleteImage(imagePath);
+    }
+
+    // Remove image from DB
+    user.photo = null;
+    await user.save();
+
+    res.redirect("/users/profile");
+  } catch (err) {
+    req.previous_url = "/users/profile";
+    next(err);
   }
 };
 
@@ -57,8 +86,14 @@ module.exports.updateProfile = async (req, res, next) => {
   }
 };
 
-module.exports.getOfferPage = (req, res, next) => {
-  res.render("pages/offer", { user: req.user || null });
+module.exports.getOfferPage = async (req, res, next) => {
+  try {
+    const pincodes = await Pincode.find();
+
+    res.render("pages/offer", { user: req.user || null, pincodes });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports.logout = (req, res, next) => {

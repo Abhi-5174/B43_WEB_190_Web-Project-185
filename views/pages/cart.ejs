@@ -9,6 +9,7 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/cart.css" />
   <link rel="stylesheet" href="/css/cartitem.css" />
 </head>
@@ -59,33 +60,47 @@
 
           <!-- Cart Items -->
 
-          <div class="cart-item">
-            <% cart.forEach(item => { %>
-              <div class="cart-item-img">
-                <img src="<%= item.product.image %>" alt="<%= item.product.name %>">
-              </div>
-              <div class="cart-item-info">
-                <h2>
-                  <%= `${item.product.name}` %>
-                </h2>
-                <p class="manufacturer">By <%= item.product.manufacturer %>
-                </p>
-                <p class="quantity">Quantity: 
-                  <select class="quantity-select" data-id="<%= item.product._id %>">
-                    <% for (let i = 1; i <= 10; i++) { %>
-                      <option value="<%= i %>" <%= item.quantity === i ? "selected" : "" %>><%= i %></option>
-                    <% } %>
-                  </select>
-                </p>
-                <p class="price">Price: ₹<%= item.product.price %>
-                </p>
-                <p class="mrp">MRP: <strike>₹<%= item.product.mrp %></strike></p>
-                <p class="discount">Save <%= item.product.discount %>%</p>
-              </div>
-              <div class="cart-item-actions">
-                <button class="remove-btn" onclick="removeFromCart('<%= item.product._id %>')">
-                  <i class="fa fa-trash"></i> Remove
-                </button>
+          <div class="cart-container">
+            <% cart.forEach(({productId, quantity, _id})=> { %>
+              <div class="parent cart-item">
+                <div class="fximg cart-item-img">
+                  <img src="<%= productId.image %>" alt="<%= productId.name %>">
+                </div>
+                <div class="fxtxt cart-item-info">
+                  <h4 class="comp">
+                    <%= productId.name %>
+                  </h4>
+                  <p class="del manufacturer">By <%= productId.manufacturer %>
+                  </p>
+                  <div class="both">
+                    <p class="quantity">
+                      Quantity:
+                      <select class="qty" data-price="<%= productId.price %>" data-id="<%= productId._id %>">
+                        <% for (let i=1; i <=10; i++) { %>
+                          <option value="<%= i %>" <%=quantity===i ? "selected" : "" %>><%= i %>
+                          </option>
+                          <% } %>
+                      </select>
+                    </p>
+                    <div class="rig">
+                      <h5>
+                        <%= productId.discount %>% OFF
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="ord">
+                    <p class="price act">₹<%= productId.price.toFixed(2) %>
+                    </p>
+                    <input type="hidden" id="pricePerUnit" value="<%= productId.price %>">
+                    <p class="mrp">MRP: <strike>₹<%= productId.mrp.toFixed(2) %></strike></p>
+                  </div>
+                </div>
+                <div class="cart-item-actions">
+                  <button class="remove-btn"
+                    onclick="window.location.href='/carts/remove-from-cart/<%= productId._id %>'">
+                    <i class="fa fa-trash"></i> Remove
+                  </button>
+                </div>
               </div>
               <% }) %>
           </div>
@@ -96,7 +111,8 @@
             <p><strong>Total Items:</strong>
               <%= cart.length %>
             </p>
-            <p><strong>Total Price:</strong> ₹<%= cart.reduce((sum, item)=> sum + item.product.price, 0) %></p>
+            <p><strong>Total Price:</strong> ₹<span id="totalPrice"> ₹<%= cart.reduce((sum, item)=> sum +
+                  item.productId.price, 0) %> </span></p>
             <% if (cart.length> 0) { %>
               <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
               <% } %>
@@ -114,3 +130,32 @@
 </body>
 
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const quantityInputs = document.querySelectorAll(".qty");
+    const priceElements = document.querySelectorAll(".ord .price");
+    const totalPriceElement = document.getElementById("totalPrice");
+
+    function updatePrice() {
+      let totalPrice = 0;
+
+      quantityInputs.forEach((input, index) => {
+        const quantity = parseInt(input.value) || 1;
+        const pricePerUnit = parseFloat(input.dataset.price); // Fetch from data attribute
+
+        const itemTotal = pricePerUnit * quantity;
+        priceElements[index].innerText = `₹${itemTotal.toFixed(2)}`;
+
+        totalPrice += itemTotal; // Update total price
+      });
+
+      totalPriceElement.innerText = `₹${totalPrice.toFixed(2)}`;
+    }
+
+    quantityInputs.forEach(input => {
+      input.addEventListener("change", updatePrice);
+    });
+
+  });
+</script>

@@ -30,6 +30,8 @@ router.post(
   userController.uploadPhoto
 );
 
+router.post("/delete-photo", userController.deleteProfileImage);
+
 router.get("/profile", isAuthenticated, userController.getProfilePage);
 
 router.post("/update-profile", isAuthenticated, userController.updateProfile);

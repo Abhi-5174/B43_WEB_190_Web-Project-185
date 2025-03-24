@@ -4,10 +4,7 @@ const express = require("express");
 const passport = require("passport");
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
-const {
-  authCallback,
-  authProfile,
-} = require("../controllers/auth.controllers");
+const authController = require("../controllers/auth.controllers");
 
 const router = express.Router();
 
@@ -22,9 +19,9 @@ router.get(
     session: false,
     failureRedirect: "/users/login",
   }),
-  authCallback
+  authController.authCallback
 );
 
-router.get("/profile", isAuthenticated, authProfile);
+router.get("/profile", isAuthenticated, authController.authProfile);
 
 module.exports = router;

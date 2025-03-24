@@ -1,9 +1,8 @@
-const fs = require("fs");
-
 const User = require("../models/User");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Pincode = require("../models/Pincode");
+const Category = require("../models/Category");
 
 module.exports.getAdminPage = async (req, res, next) => {
   const { pass } = req.params;
@@ -17,10 +16,17 @@ module.exports.getAdminPage = async (req, res, next) => {
     const totalProducts = await Product.countDocuments();
     const totalOrders = await Order.countDocuments();
     const totalPincodes = await Pincode.countDocuments();
+    const totalCategories = await Category.countDocuments();
 
     res.render("pages/admin", {
       user: req.user,
-      details: { totalUsers, totalPincodes, totalProducts, totalOrders },
+      details: {
+        totalUsers,
+        totalPincodes,
+        totalProducts,
+        totalOrders,
+        totalCategories,
+      },
     });
   } catch (error) {
     return res.redirect(

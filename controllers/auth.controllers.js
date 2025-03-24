@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 const Cart = require("../models/Cart");
+const AuthCookie = require("../utils/cookie");
 const sendResetEmail = require("../utils/mailer");
-const { generateResetToken, verifyResetToken } = require("../utils/jwt");
+const jwt = require("../utils/jwt");
 
 module.exports.authCallback = (req, res) => {
   if (!req.user) {
@@ -10,23 +11,13 @@ module.exports.authCallback = (req, res) => {
 
   const { token, user } = req.user;
 
-  res.cookie("auth_token", token, {
-    httpOnly: true, // Prevents XSS attacks
-    secure: process.env.NODE_ENV === "production", // HTTPS only in production
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+  AuthCookie.setAuthCookie(res, token);
 
   res.redirect("/auth/profile");
 };
 
 module.exports.authProfile = (req, res) => {
-  try {
-    res.redirect(`/`);
-  } catch (error) {
-    console.log("Invalid Token");
-    res.clearCookie("auth_token");
-    res.redirect("/");
-  }
+  res.redirect(`/`);
 };
 
 module.exports.getLoginPage = (req, res, next) => {
@@ -63,18 +54,9 @@ module.exports.postLogin = async (req, res, next) => {
       );
     }
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.generateToken(user._id);
 
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    AuthCookie.setAuthCookie(res, token);
 
     let userCart = await Cart.findOne({ userId: user._id });
     if (!userCart) {
@@ -83,19 +65,22 @@ module.exports.postLogin = async (req, res, next) => {
 
     const guestCart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
     guestCart.forEach((guestItem) => {
+      const quantity = Number(guestItem.quantity) || 1;
       const existingItem = userCart.items.find(
-        (cartItem) => cartItem.medicineId.toString() === guestItem.productId
+        (cartItem) => cartItem.productId.toString() === guestItem.productId
       );
 
       if (existingItem) {
-        existingItem.quantity += guestItem.quantity; // Update quantity
+        existingItem.quantity += quantity; // Update quantity
       } else {
         userCart.items.push({
-          medicineId: guestItem.productId,
-          quantity: guestItem.quantity,
+          productId: guestItem.productId,
+          quantity,
         });
       }
     });
+
+    await userCart.save();
 
     // Clear Guest Cart from Cookies
     res.clearCookie("cart");
@@ -132,20 +117,11 @@ module.exports.postForgotPassword = async (req, res, next) => {
         "/users/forgot-password?error=" + encodeURIComponent("User not found!")
       );
 
-    const resetToken = generateResetToken(email);
+    const resetToken = jwt.generateResetToken(email);
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.generateToken(user._id);
 
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    AuthCookie.setAuthCookie(res, token);
 
     // Extract base URL dynamically
     const baseUrl = `${req.protocol}://${req.get("host")}`;
@@ -168,7 +144,13 @@ module.exports.postForgotPassword = async (req, res, next) => {
 
 module.exports.getResetPasswordPage = async (req, res) => {
   const { token } = req.params;
-  const decoded = verifyResetToken(token);
+  const decoded = jwt.verifyResetToken(token);
+
+  if (!decoded)
+    return res.redirect(
+      "/users/forgot-password?error=" + encodeURIComponent("Invalid token")
+    );
+
   res.render("pages/resetPassword", {
     showPopup: false,
     message: null,
@@ -197,7 +179,7 @@ module.exports.postResetPassword = async (req, res) => {
         )}`
       );
 
-    const decoded = verifyResetToken(token);
+    const decoded = jwt.verifyResetToken(token);
     if (!decoded)
       return res.redirect(
         "/users/forgot-password?error=" +
@@ -251,18 +233,9 @@ module.exports.postSignup = async (req, res, next) => {
 
     const user = await newUser.save();
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.generateToken(user._id);
 
-    res.cookie("auth_Token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    AuthCookie.setAuthCookie(res, token);
 
     res.render("pages/login", {
       showPopup: true,

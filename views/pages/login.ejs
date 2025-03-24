@@ -6,71 +6,66 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LOGIN</title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/login.css" />
 </head>
 
 <body>
-  <header>
-    <div class="head">
-      <img src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png" alt="logo" />
-    </div>
-    <div class="headright">
-      <img src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg" alt="logo2" />
-    </div>
-  </header>
+  <!-- Header -->
+  <%- include('../partials/secondary_header') %>
 
-  <div class="login">
-    <p>Quick Login / Register</p>
-  </div>
-
-  <!-- Error Message Popup -->
-  <div id="error-popup" class="popup" style="display: none;">
-    <p id="popup-message"></p>
-    <button onclick="closePopup()">OK</button>
-  </div>
-
-  <!-- Login Form -->
-  <form id="entry" action="/users/login" method="POST">
-    <label for="num">Email</label>
-    <input type="email" id="num" name="email" placeholder="Enter your Email" required />
-
-    <label for="password">Password</label>
-    <div style="position: relative;">
-      <input type="password" id="password" name="password" placeholder="Enter your Password" required minlength="6" />
-      <span id="togglePassword"
-        style="cursor: pointer; position: absolute; right: 45px; top: 30%; transform: translateY(-50%);">👁️</span>
+    <div class="login">
+      <p>Quick Login / Register</p>
     </div>
 
-    <div style="text-align: right; margin-top: 5px;">
-      <a href="/users/forgot-password" style="text-decoration: none; color: #0f8a65;">Forgot Password?</a>
+    <!-- Error Message Popup -->
+    <div id="error-popup" class="popup" style="display: none;">
+      <p id="popup-message"></p>
+      <button onclick="closePopup()">OK</button>
     </div>
 
-    <button type="submit" class="go">Continue</button>
-  </form>
+    <!-- Login Form -->
+    <form id="entry" action="/users/login" method="POST">
+      <label for="num">Email</label>
+      <input type="email" id="num" name="email" placeholder="Enter your Email" required />
 
-  <div class="foot">
-    Don't have an account? <a href="/users/signup" style="color: #0f8a65; font-weight: bold;">Sign up</a>
-  </div>
+      <label for="password">Password</label>
+      <div style="position: relative;">
+        <input type="password" id="password" name="password" placeholder="Enter your Password" required minlength="6" />
+        <span id="togglePassword"
+          style="cursor: pointer; position: absolute; right: 45px; top: 30%; transform: translateY(-50%);">👁️</span>
+      </div>
 
-  <div class="divider">
-    <span>OR</span>
-  </div>
+      <div style="text-align: right; margin-top: 5px;">
+        <a href="/users/forgot-password" style="text-decoration: none; color: #0f8a65;">Forgot Password?</a>
+      </div>
 
-  <div class="social-login">
-    <button class="google-btn" onclick="location.href='/auth/google'">
-      <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" width="20px" alt="Google" />
-      Continue with Google
-    </button>
-    <button class="facebook-btn" onclick="location.href='/auth/facebook'">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" width="20px"
-        alt="Facebook" />
-      Continue with Facebook
-    </button>
-  </div>
+      <button type="submit" class="go">Continue</button>
+    </form>
 
-  <div class="foot">
-    By clicking continue, you agree with our <a href="/privacy-policy">Privacy Policy</a>
-  </div>
+    <div class="foot">
+      Don't have an account? <a href="/users/signup" style="color: #0f8a65; font-weight: bold;">Sign up</a>
+    </div>
+
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+    <div class="social-login">
+      <button class="google-btn" onclick="location.href='/auth/google'">
+        <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" width="20px" alt="Google" />
+        Continue with Google
+      </button>
+      <button class="facebook-btn" onclick="location.href='/auth/facebook'">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" width="20px"
+          alt="Facebook" />
+        Continue with Facebook
+      </button>
+    </div>
+
+    <div class="foot">
+      By clicking continue, you agree with our <a href="/privacy-policy">Privacy Policy</a>
+    </div>
 </body>
 
 </html>

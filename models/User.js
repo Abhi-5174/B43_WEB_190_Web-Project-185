@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
       select: false, // Prevents password from being returned in queries
     },
     photo: {
-      type: String
+      type: String,
     },
     address: {
       street: String,
@@ -48,6 +48,11 @@ const userSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    pincode: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Pincode",
+      default: null
     },
   },
   { timestamps: true }

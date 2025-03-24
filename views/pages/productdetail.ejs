@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    PharmEasy: Online Pharmacy & Medical Store in India | 5M+ ... pharmeasy.in
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/productdetails.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <%- include('../partials/header') %>
+
+    <!-- add cart -->
+    <main class="divide" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;">
+
+      <div>
+        <img src="<%= `${product.image}` %>" alt="<%= product.name %>">
+      </div>
+
+      <div class="add_cart2">
+        <h2 id="tabname">
+          <%= product.name %>
+        </h2>
+        <p id="tabcompany">By <%= product.manufacturer %>
+        </p>
+        <h5 class="p10" id="stock">
+          <%= product.quantity> 0 ? "In Stock" : "Out of Stock" %>
+        </h5>
+
+        <% if(product.quantity && product.quantity> 0) { %>
+          <!-- Quantity Selector -->
+          <label for="quantity">Quantity:</label>
+          <select id="quantity">
+            <% for(let i=1; i <=10; i++) { %>
+              <option value="<%= i %>">
+                <%= i %>
+              </option>
+              <% } %>
+          </select>
+          <% } %>
+
+            <div class="add_insite">
+              <h2 id="actual">₹<%= product.price.toFixed(2) %>
+              </h2>
+              <input type="hidden" id="pricePerUnit" value="<%= product.price %>">
+              <p>MRP</p>
+              <p class="p2" id="original">₹<%= product.mrp.toFixed(2) %>
+              </p>
+              <h5 id="taboff">
+                <%= product.discount %>% OFF
+              </h5>
+            </div>
+
+            <h6>Inclusive of all taxes</h6>
+            <button type="button"
+              onclick="(location.href=`/carts/<%= is_added ? 'remove-from-cart' : 'add-to-cart' %>/<%= product._id %>?quantity=${document.getElementById('quantity') || 1}`)"
+              id="carted">
+              <%= is_added ? 'Added' : 'Add To Cart' %>
+            </button>
+      </div>
+
+      <div class="add_cart3">
+        <h5 id="showcart">
+          <%= cartLength %> item in cart
+        </h5>
+        <button type="button" onclick="(location.href='/carts')">
+          View Cart
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <hr>
+    <%- include('../partials/footer') %>
+
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const quantityInput = document.getElementById("quantity");
+    const priceElement = document.getElementById("actual");
+    const pricePerUnit = parseFloat(document.getElementById("pricePerUnit").value); // Fetch safely
+
+    function updatePrice() {
+      const quantity = parseInt(quantityInput.value) || 1;
+      priceElement.innerText = `₹${(pricePerUnit * quantity).toFixed(2)}`;
+    }
+
+    quantityInput.addEventListener("input", updatePrice);
+    updatePrice(); 
+  });
+</script>

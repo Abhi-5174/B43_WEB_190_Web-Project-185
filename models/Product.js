@@ -20,10 +20,6 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Quantity is required"],
       trim: true,
-      match: [
-        /^\d+\s?(tablet|capsule|ml|mg|strip|bottle|pack|g)$/i,
-        "Invalid quantity format (e.g., '10 tablet', '100 ml')",
-      ],
     },
     price: {
       type: Number,
@@ -49,8 +45,13 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      // required: [true, "Image URL is required"],
+      required: [true, "Image URL is required"],
       trim: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
     },
   },
   { timestamps: true }

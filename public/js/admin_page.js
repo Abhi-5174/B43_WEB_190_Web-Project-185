@@ -9,6 +9,7 @@ function showPopup(
   popup.style.position = "fixed";
   popup.style.top = "0";
   popup.style.width = "100%";
+  popup.style.height = "fit-content";
   popup.style.left = "0";
   popup.style.padding = "10px 20px";
   popup.style.textAlign = "center";

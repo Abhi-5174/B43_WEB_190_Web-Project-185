@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-const generateResetToken = (email) => {
+module.exports.generateResetToken = (email) => {
   return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 };
 
-const verifyResetToken = (token) => {
+module.exports.verifyResetToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
@@ -12,4 +12,6 @@ const verifyResetToken = (token) => {
   }
 };
 
-module.exports = { generateResetToken, verifyResetToken };
+module.exports.generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+};

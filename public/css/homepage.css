@@ -3,12 +3,14 @@
   box-sizing: border-box !important;
   font-family: Open Sans, sans-serif !important;
 }
-body{
+
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   box-sizing: border-box;
 }
+
 header {
   background-color: teal;
   width: 100%;
@@ -17,6 +19,7 @@ header {
   position: relative;
   margin-top: -10px;
 }
+
 header #header1 {
   width: 100vw;
   padding-top: 30px;
@@ -24,11 +27,13 @@ header #header1 {
   background-size: cover;
   background-color: teal;
 }
-header #header1 > img {
+
+header #header1>img {
   width: 160px;
   height: 50px;
   margin-left: 90px;
 }
+
 header .select {
   border: 1px solid blue;
   width: fit-content;
@@ -39,6 +44,7 @@ header .select {
   border-radius: 5px;
   border: none;
 }
+
 header .select p {
   width: 180px;
   font-size: 14px;
@@ -47,19 +53,22 @@ header .select p {
   margin-left: 20px;
   font-weight: bold;
 }
-header .select > img {
+
+header .select>img {
   width: 15px;
   height: 15px;
   margin-left: 20px;
   margin-top: 17px;
   color: rgb(136, 151, 162);
 }
+
 header .select div {
   border: 0.5px solid rgb(223, 227, 230);
   height: 20px;
   margin-top: 13px;
   margin-left: 20px;
 }
+
 header .select input {
   width: 576px;
   margin-left: -5px;
@@ -69,12 +78,14 @@ header .select input {
   border: none;
   color: rgb(13, 108, 103);
 }
-.search > img {
+
+.search>img {
   padding-top: 11px;
   padding-right: 9px;
   width: 30px;
   margin-left: 0px;
 }
+
 header #header1 .headerleft {
   margin-left: 50px;
   width: 200px;
@@ -88,20 +99,23 @@ header #header1 .headerleft {
   display: flex;
   cursor: pointer;
 }
-header #header1 .headerleft:hover{
+
+header #header1 .headerleft:hover {
   background-color: rgb(11, 84, 81);
 }
 
-.headerleft > img {
+.headerleft>img {
   width: 10px;
   height: 10px;
   margin-top: 23px;
   margin-left: -80px;
 }
+
 .arw {
   display: flex;
 }
-.left_arw > img {
+
+.left_arw>img {
   width: 50px;
   height: 50px;
   margin-top: -243px;
@@ -109,7 +123,7 @@ header #header1 .headerleft:hover{
   margin-left: 102px;
 }
 
-.right_arw > img {
+.right_arw>img {
   width: 50px;
   height: 50px;
   margin-left: auto;
@@ -121,33 +135,40 @@ header #header1 .headerleft i {
   margin-top: 20px;
   margin-left: -80px;
 }
+
 header #header2 {
   width: 100vw;
   padding-top: 20px;
   display: flex;
 }
+
 header #header2 .downhead {
   margin-left: 320px;
   color: white;
   font-size: 16px;
 }
+
 header #header2 .downhead span {
   padding-right: 40px;
 }
-header #header2 .downhead a{
+
+header #header2 .downhead a {
   padding: 10px;
   border-radius: 5px;
 }
-header #header2 .downhead a:hover{
+
+header #header2 .downhead a:hover {
   background-color: rgb(2, 111, 111);
   text-decoration: none;
 }
+
 header #header2 .righthead {
   display: flex;
   gap: 20px;
   margin-left: 250px;
 }
-header #header2 .righthead #nav-links{
+
+header #header2 .righthead #nav-links {
   height: 40px;
   padding: 10px;
   display: flex;
@@ -156,20 +177,25 @@ header #header2 .righthead #nav-links{
   border-radius: 10px;
   color: white;
 }
-header #header2 .righthead #nav-links:hover{
+
+header #header2 .righthead #nav-links:hover {
   background-color: rgb(2, 100, 100);
 }
+
 header #header2 .righthead img {
   /* padding-right: 8px; */
   width: 28px;
   height: 28px;
 }
-header #header2 .righthead p{
+
+header #header2 .righthead p {
   padding-top: 10px;
 }
-header #header2 .righthead p a{
+
+header #header2 .righthead p a {
   text-decoration: none;
 }
+
 /* image sliding */
 #cont {
   max-width: 100%;
@@ -177,14 +203,17 @@ header #header2 .righthead p a{
   max-height: 100vh;
   margin: auto;
 }
-#cont > img {
+
+#cont>img {
   max-width: 100%;
   margin: auto;
 }
+
 .btn_slide {
   width: 30px;
   height: 100px;
 }
+
 /* next part */
 #svgs {
   width: 100%;
@@ -193,9 +222,10 @@ header #header2 .righthead p a{
   margin-top: 50px;
   margin-left: 120px;
 }
-#svgs > #insvg1,
-#svgs > #insvg2,
-#svgs > #insvg3 {
+
+#svgs>#insvg1,
+#svgs>#insvg2,
+#svgs>#insvg3 {
   display: flex;
   flex-direction: column;
   background-image: url("/images/doc.png"), url("/images/gre1.svg");
@@ -210,12 +240,14 @@ header #header2 .righthead p a{
   background-position: right, left;
   background-size: 10vw 10vw, contain;
 }
-#svgs > div > h3 {
+
+#svgs>div>h3 {
   color: rgb(79, 88, 94);
   padding: 1.5em;
   margin-top: 9px;
 }
-#svgs > .fon > button {
+
+#svgs>.fon>button {
   height: 40px;
   width: 30%;
   margin: 1rem 1.5rem;
@@ -223,43 +255,52 @@ header #header2 .righthead p a{
   color: white;
   font-size: 1rem;
 }
-#insvg1 > button {
+
+#insvg1>button {
   background-color: rgb(64, 186, 153);
   border: none;
 }
-#insvg1 > button:hover {
+
+#insvg1>button:hover {
   color: rgb(64, 186, 153);
   background-color: white;
   border: 2px solid rgb(64, 186, 153);
 }
-#insvg2 > button {
+
+#insvg2>button {
   background-color: rgb(252, 128, 25);
   border: none;
 }
-#insvg2 > button:hover {
+
+#insvg2>button:hover {
   color: rgb(252, 128, 25);
   background-color: white;
   border: 2px solid rgb(252, 128, 25);
 }
-#insvg3 > button {
+
+#insvg3>button {
   background-color: rgb(0, 185, 225);
   border: none;
 }
-#insvg3 > button:hover {
+
+#insvg3>button:hover {
   color: rgb(0, 185, 225);
   background-color: white;
   border: 2px solid rgb(0, 185, 225);
 }
-#svgs > #insvg2 {
+
+#svgs>#insvg2 {
   background-image: url("/images/doc.png"), url("/images/yel2.svg");
   background-position: right, left;
   background-size: 10vw 10vw, contain;
 }
-#svgs > #insvg3 {
+
+#svgs>#insvg3 {
   background-image: url("/images/doc.png"), url("/images/blue3.svg");
   background-position: right, left;
   background-size: 10vw 10vw, contain;
 }
+
 #membership {
   display: flex;
   width: 85%;
@@ -268,30 +309,32 @@ header #header2 .righthead p a{
   align-items: center;
   margin-top: 50px;
   border-radius: 5px;
-  background-image: linear-gradient(
-    40deg,
-    rgb(169, 154, 250) 20%,
-    rgb(162, 145, 250) 20%,
-    rgb(162, 145, 250) 85%,
-    rgb(169, 154, 250) 85%
-  );
+  background-image: linear-gradient(40deg,
+      rgb(169, 154, 250) 20%,
+      rgb(162, 145, 250) 20%,
+      rgb(162, 145, 250) 85%,
+      rgb(169, 154, 250) 85%);
   margin-left: 120px;
 }
+
 #membership img {
   width: 150px;
   height: 30px;
   margin-left: 20px;
 }
+
 #membership p {
   color: white;
   margin-left: 90px;
   font-size: 20px;
 }
+
 #membership .img2 {
   height: 129px;
   margin-left: 320px;
   padding-bottom: 40px;
 }
+
 #imagesbar {
   display: flex;
   width: 180px;
@@ -300,13 +343,16 @@ header #header2 .righthead p a{
   margin-bottom: 100px;
   margin-left: 120px;
 }
+
 #imagesbar img {
   padding-right: 30px;
 }
+
 .offers {
   display: flex;
   margin-left: 120px;
 }
+
 .offers h2 {
   padding-left: 30px;
   margin-top: 10px;
@@ -316,6 +362,7 @@ header #header2 .righthead p a{
   display: flex;
   margin-left: 120px;
 }
+
 .offerslide {
   display: flex;
   border: 2px solid lightgrey;
@@ -327,22 +374,26 @@ header #header2 .righthead p a{
   margin-top: 30px;
   border-radius: 5px;
 }
+
 .carousel {
   margin-left: 70px;
   margin-right: 85px;
 }
-.offerslide > img {
+
+.offerslide>img {
   width: 70px;
   height: 70px;
   margin-left: 5px;
 }
-.offerslide > pre {
+
+.offerslide>pre {
   font-size: 15px;
   font-weight: bold;
   margin-left: 15px;
   margin-top: -50px;
   padding-bottom: 30px;
 }
+
 .offerslide {
   display: flex;
   border: 2px solid lightgrey;
@@ -350,7 +401,7 @@ header #header2 .righthead p a{
   width: 250px;
 }
 
-.offerslide > img {
+.offerslide>img {
   width: 70px;
   height: 70px;
   margin-right: 10px;
@@ -367,11 +418,13 @@ header #header2 .righthead p a{
   margin: 5% auto;
   margin-bottom: 12%;
 }
-#lab > h3 {
+
+#lab>h3 {
   font-weight: 700;
   font-size: 20px;
   color: rgb(79, 88, 94);
 }
+
 #slid {
   display: flex;
   flex-wrap: wrap;
@@ -390,31 +443,38 @@ header #header2 .righthead p a{
   border: 1px solid rgb(223, 227, 230);
   border-radius: 8px;
 }
+
 .invi {
   background-color: transparent;
   border: none;
 }
-.car > ul {
+
+.car>ul {
   list-style: none;
   padding: 0;
 }
-.car > ul > li {
+
+.car>ul>li {
   font-size: 18px;
   padding: 5px 0;
   color: rgb(79, 88, 94);
 }
-.car > .pribut > p {
+
+.car>.pribut>p {
   font-weight: 900;
   font-size: 16px;
 }
-.car > .pribut > p > span {
+
+.car>.pribut>p>span {
   font-weight: 500;
 }
+
 .pribut {
   display: flex;
   justify-content: space-between;
   padding-top: 1rem;
 }
+
 .car button {
   background-color: white;
   height: auto;
@@ -424,14 +484,17 @@ header #header2 .righthead p a{
   font-size: 16px;
   font-weight: 900;
 }
+
 .car:hover button {
   border: 2px solid rgb(18, 133, 127);
   background-color: rgb(18, 133, 127);
   color: white;
 }
+
 .car:hover {
   border: 2px solid rgb(18, 133, 127);
 }
+
 #buts {
   width: 100px;
   height: 50px;
@@ -439,15 +502,18 @@ header #header2 .righthead p a{
   float: right;
   margin-top: -50px;
 }
-#buts > button {
+
+#buts>button {
   background-color: white;
   border: none;
   margin: 10px;
 }
-#buts > button > img {
+
+#buts>button>img {
   width: 30px;
   border-radius: 5px;
 }
+
 .cross {
   color: white;
   background: teal;
@@ -460,6 +526,7 @@ header #header2 .righthead p a{
   margin-left: 69%;
   cursor: pointer;
 }
+
 .popup {
   background: rgba(0, 0, 0, 0.6);
   width: 100%;
@@ -468,6 +535,7 @@ header #header2 .righthead p a{
   top: 0;
   display: none;
 }
+
 .pin_pop {
   background: rgba(0, 0, 0, 0.6);
   width: 100%;
@@ -476,6 +544,7 @@ header #header2 .righthead p a{
   display: none;
   top: 0;
 }
+
 .pin_cont {
   height: 17%;
   width: 420px;
@@ -483,6 +552,7 @@ header #header2 .righthead p a{
   float: right;
   margin-top: 0px;
 }
+
 .cross121 {
   color: white;
   background: white;
@@ -496,24 +566,28 @@ header #header2 .righthead p a{
   margin-left: -52px;
   cursor: pointer;
 }
+
 .pin_loc {
   width: 200px;
   margin-top: -50px;
   margin-left: 40px;
   font-size: 20px;
 }
+
 .pin_inp {
   width: 80%;
   margin-left: 40px;
   margin-top: 30px;
 }
-.pin_inp > input {
+
+.pin_inp>input {
   height: 40px;
   width: 250px;
   border-radius: 5px;
   padding-left: 10px;
 }
-.pin_inp > button {
+
+.pin_inp>button {
   height: 40px;
   width: 87px;
   margin-left: -10px;
@@ -521,6 +595,7 @@ header #header2 .righthead p a{
   color: white;
   border: none;
 }
+
 .pin_box1 {
   display: flex;
   border: 1px solid lightgrey;
@@ -532,17 +607,20 @@ header #header2 .righthead p a{
   text-align: center;
   align-items: center;
 }
-.pin_box1 > img {
+
+.pin_box1>img {
   width: 30px;
   height: 30px;
   margin-left: 10px;
 }
-.pin_box1 > p {
+
+.pin_box1>p {
   color: teal;
   font-size: 17px;
   margin-top: 5px;
   margin-left: 20px;
 }
+
 .pin_box2 {
   display: flex;
 
@@ -554,18 +632,21 @@ header #header2 .righthead p a{
   align-items: center;
   background: rgb(243, 246, 250);
 }
-.pin_box2 > img {
+
+.pin_box2>img {
   width: 30px;
   height: 30px;
   margin-left: 10px;
 }
-.pin_box2 > p {
+
+.pin_box2>p {
   color: teal;
   font-size: 17px;
   margin-top: 5px;
   margin-left: 20px;
   width: 250px;
 }
+
 .pin_box3 {
   display: flex;
   width: 80%;
@@ -576,18 +657,21 @@ header #header2 .righthead p a{
   align-items: center;
   background: rgb(233, 249, 255);
 }
-.pin_box3 > img {
+
+.pin_box3>img {
   width: 30px;
   height: 30px;
   margin-left: 10px;
 }
-.pin_box3 > p {
+
+.pin_box3>p {
   color: teal;
   font-size: 17px;
   margin-top: 5px;
   margin-left: 20px;
   width: 250px;
 }
+
 .refer {
   width: 100%;
   height: 100%;
@@ -598,6 +682,7 @@ header #header2 .righthead p a{
   align-items: center;
   display: none;
 }
+
 .srch_pop {
   background: rgba(0, 0, 0, 0.6);
   width: 100%;
@@ -608,6 +693,7 @@ header #header2 .righthead p a{
   align-items: center;
   display: none;
 }
+
 .sch_drop {
   width: 622px;
   height: 300px;
@@ -616,21 +702,25 @@ header #header2 .righthead p a{
   margin-top: -14px;
   overflow-x: hidden;
 }
-.sch_drop > .sch_p1 {
+
+.sch_drop>.sch_p1 {
   width: 100%;
   padding: 5px;
   height: 35px;
   padding-left: 20px;
   background: rgb(244, 247, 251);
 }
+
 .srh_ps {
   margin-top: 10px;
   margin-left: 20px;
   margin-bottom: 50px;
 }
-.srh_ps > p {
+
+.srh_ps>p {
   margin-bottom: 20px;
 }
+
 /* order */
 .srch_pop1 {
   width: 100%;
@@ -641,6 +731,7 @@ header #header2 .righthead p a{
   align-items: center;
   display: none;
 }
+
 .sch_drop1 {
   width: 473px;
   height: 300px;
@@ -649,21 +740,25 @@ header #header2 .righthead p a{
   margin-top: -14px;
   overflow-x: hidden;
 }
-.sch_drop1 > .sch_p12 {
+
+.sch_drop1>.sch_p12 {
   width: 100%;
   padding: 5px;
   height: 35px;
   padding-left: 20px;
   background: rgb(244, 247, 251);
 }
+
 .srh_ps1 {
   margin-top: 10px;
   margin-left: 20px;
   margin-bottom: 50px;
 }
-.srh_ps1 > p {
+
+.srh_ps1>p {
   margin-bottom: 20px;
 }
+
 .ref_con {
   height: 440px;
   width: 350px;
@@ -674,19 +769,23 @@ header #header2 .righthead p a{
   margin-left: 950px;
   border-radius: 5px;
 }
+
 .btn_ref {
   float: right;
   font-size: 22px;
   margin-top: -10px;
   cursor: pointer;
 }
+
 .first_pre {
   width: 170px;
 }
-.first_pre > h2 {
+
+.first_pre>h2 {
   font-size: 24px;
 }
-.first_pre > h4 {
+
+.first_pre>h4 {
   background: teal;
   width: 100px;
   height: 20px;
@@ -695,30 +794,37 @@ header #header2 .righthead p a{
   margin-top: 20px;
   padding: 3px;
 }
-.img_pre > img {
+
+.img_pre>img {
   width: 150px;
   height: 120px;
   margin-left: 20px;
 }
+
 .pre_1 {
   display: flex;
   padding-top: 30px;
 }
+
 .pre_2 {
   font-size: 16px;
   padding-top: 20px;
   margin-left: 10px;
 }
-.pre_2 > p:nth-child(1) {
+
+.pre_2>p:nth-child(1) {
   color: teal;
 }
-.pre_2 > p:nth-child(4) {
+
+.pre_2>p:nth-child(4) {
   margin-left: 20px;
   font-weight: bold;
 }
-.pre_2 > p:nth-child(5) {
+
+.pre_2>p:nth-child(5) {
   color: rgb(119, 118, 118);
 }
+
 .pop_content {
   height: 15%;
   width: 420px;
@@ -733,7 +839,8 @@ header #header2 .righthead p a{
   margin-left: 0px;
   background-color: rgb(16, 132, 126);
 }
-.head > img {
+
+.head>img {
   width: 50%;
   align-self: center;
   padding-top: 30px;
@@ -742,13 +849,15 @@ header #header2 .righthead p a{
   height: 92px;
   padding-left: 4%;
 }
-.headright > img {
+
+.headright>img {
   margin-left: 250px;
   height: 108px;
   margin-top: -81px;
   width: 171px;
   float: left;
 }
+
 .login {
   text-align: center;
   font-size: large;
@@ -772,7 +881,8 @@ header #header2 .righthead p a{
   margin-bottom: 15px;
   border: none;
 }
-#entry > input {
+
+#entry>input {
   text-align: center;
   width: 81%;
   margin-left: 36px;
@@ -782,6 +892,7 @@ header #header2 .righthead p a{
   border-radius: 5px;
   border: 0.5px solid rgb(75, 74, 74);
 }
+
 .foot {
   text-align: center;
   font-size: 15px;
@@ -789,7 +900,8 @@ header #header2 .righthead p a{
   width: 80%;
   margin-left: 33px;
 }
-.foot > a {
+
+.foot>a {
   color: teal;
   font-size: 12px;
 }
@@ -800,7 +912,8 @@ header #header2 .righthead p a{
   margin: auto;
   flex-direction: row;
 }
-.otpflex > input {
+
+.otpflex>input {
   width: 20%;
   height: 2.5rem;
   margin: 5%;
@@ -808,6 +921,7 @@ header #header2 .righthead p a{
   border-radius: 6px;
   border: 1px solid rgb(136, 151, 162);
 }
+
 .resendflex {
   max-width: 90%;
   color: rgb(30, 139, 134);
@@ -817,9 +931,11 @@ header #header2 .righthead p a{
   justify-content: space-between;
   margin: auto;
 }
+
 #close_user {
   display: none;
 }
+
 .user_dropout {
   width: 0;
   height: 0;
@@ -830,6 +946,7 @@ header #header2 .righthead p a{
   top: 128px;
   right: 240px;
 }
+
 .form_user {
   position: absolute;
   width: 241px;
@@ -839,10 +956,12 @@ header #header2 .righthead p a{
   right: 136px;
   border-radius: 5px;
 }
+
 .input_user {
   margin-top: 27px;
 }
-.input_user > p {
+
+.input_user>p {
   padding-bottom: 6px;
   font-size: 17px;
   padding-left: 28px;
@@ -851,9 +970,11 @@ header #header2 .righthead p a{
   color: grey;
   cursor: pointer;
 }
-.input_user > p:hover {
+
+.input_user>p:hover {
   background: rgb(231, 239, 250);
 }
+
 .pin_pop90 {
   background: rgba(0, 0, 0, 0.7);
   width: 100%;
@@ -862,6 +983,7 @@ header #header2 .righthead p a{
   top: 0;
   display: none;
 }
+
 .pin_cont90 {
   height: 17%;
   width: 420px;
@@ -869,6 +991,7 @@ header #header2 .righthead p a{
   float: right;
   margin-top: 0px;
 }
+
 .cross12190 {
   color: white;
   background: white;
@@ -882,15 +1005,18 @@ header #header2 .righthead p a{
   margin-left: -52px;
   cursor: pointer;
 }
+
 .adde_main1 {
   margin-left: 30px;
   margin-top: -70px;
 }
-.adde_cont1 > p {
+
+.adde_cont1>p {
   font-size: 23px;
   font-weight: bold;
   margin-bottom: 20px;
 }
+
 .adde_cont2 {
   display: flex;
   background: skyblue;
@@ -901,33 +1027,41 @@ header #header2 .righthead p a{
   margin-bottom: 10px;
   border-radius: 5px;
 }
-.adde_cont2 > img {
+
+.adde_cont2>img {
   width: 40px;
   height: 30px;
 }
-.adde_cont2 > p {
+
+.adde_cont2>p {
   margin-left: 14px;
   padding-top: 13px;
 }
+
 .form_addre {
   width: 370px;
   margin-bottom: 10px;
 }
-.form_addre > p {
+
+.form_addre>p {
   font-size: 15px;
 }
-.form_addre > input {
+
+.form_addre>input {
   width: 100%;
   height: 35px;
   margin-bottom: 8px;
 }
+
 .span_addre1 {
   display: flex;
 }
-.span_addre1 > span {
+
+.span_addre1>span {
   margin-right: 25px;
 }
-.save_addre1 > button {
+
+.save_addre1>button {
   width: 80%;
   margin-left: 10%;
   height: 41px;

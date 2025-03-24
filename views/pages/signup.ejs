@@ -5,85 +5,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup</title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/signup.css">
 </head>
 
 <body>
-  <header>
-    <div class="head">
-      <img src="https://assets.pharmeasy.in/web-assets/dist/fca22bc9.png" alt="logo" />
-    </div>
-    <div class="headright">
-      <img src="https://assets.pharmeasy.in/web-assets/dist/1fe1322a.svg" alt="logo2" />
-    </div>
-  </header>
+  <!-- Header -->
+  <%- include('../partials/secondary_header') %>
 
-  <!-- Error Popup -->
-  <div id="error-popup" class="popup">
-    <p id="popup-message"></p>
-    <button onclick="closePopup()">OK</button>
-  </div>
-
-  <div class="login">
-    <p>Create Your Account</p>
-  </div>
-
-  <!-- Signup Form -->
-  <form id="signupForm" action="/users/signup" method="POST">
-    <!-- Name -->
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" placeholder="Enter your Name" required minlength="3" maxlength="50">
-
-    <!-- Email -->
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="Enter your Email" required>
-
-    <!-- Password with Toggle -->
-    <label for="password">Password</label>
-    <div class="password-container">
-      <input type="password" id="password" name="password" placeholder="Enter Password" required minlength="6">
-      <span id="togglePassword">👁️</span>
+    <!-- Error Popup -->
+    <div id="error-popup" class="popup">
+      <p id="popup-message"></p>
+      <button onclick="closePopup()">OK</button>
     </div>
 
-    <!-- Password with Toggle -->
-    <label for="confirmpassword">Confirm Password</label>
-    <div class="password-container">
-      <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required
-        minlength="6">
-      <span id="togglePasswordConfirm">👁️</span>
+    <div class="login">
+      <p>Create Your Account</p>
     </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="go">Create Account</button>
-  </form>
+    <!-- Signup Form -->
+    <form id="signupForm" action="/users/signup" method="POST">
+      <!-- Name -->
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your Name" required minlength="3" maxlength="50">
 
-  <!-- Already have an account? -->
-  <div class="foot">
-    Already have an account? <a href="/users/login">Login</a>
-  </div>
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your Email" required>
 
-  <!-- OR Divider -->
-  <div class="divider">
-    <span>OR</span>
-  </div>
+      <!-- Password with Toggle -->
+      <label for="password">Password</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="Enter Password" required minlength="6">
+        <span id="togglePassword">👁️</span>
+      </div>
 
-  <!-- Social Signup -->
-  <div class="social-login">
-    <button class="google-btn" onclick="location.href='/auth/google'">
-      <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" width="20px" alt="Google">
-      Sign up with Google
-    </button>
-    <button class="facebook-btn" onclick="location.href='/auth/facebook'">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" width="20px"
-        alt="Facebook">
-      Sign up with Facebook
-    </button>
-  </div>
+      <!-- Password with Toggle -->
+      <label for="confirmpassword">Confirm Password</label>
+      <div class="password-container">
+        <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required
+          minlength="6">
+        <span id="togglePasswordConfirm">👁️</span>
+      </div>
 
-  <!-- Terms & Privacy -->
-  <div class="foot">
-    By clicking Sign Up, you agree to our <a href="/privacy-policy">Privacy Policy</a>
-  </div>
+      <!-- Submit Button -->
+      <button type="submit" class="go">Create Account</button>
+    </form>
+
+    <!-- Already have an account? -->
+    <div class="foot">
+      Already have an account? <a href="/users/login">Login</a>
+    </div>
+
+    <!-- OR Divider -->
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+    <!-- Social Signup -->
+    <div class="social-login">
+      <button class="google-btn" onclick="location.href='/auth/google'">
+        <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" width="20px" alt="Google">
+        Sign up with Google
+      </button>
+      <button class="facebook-btn" onclick="location.href='/auth/facebook'">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" width="20px"
+          alt="Facebook">
+        Sign up with Facebook
+      </button>
+    </div>
+
+    <!-- Terms & Privacy -->
+    <div class="foot">
+      By clicking Sign Up, you agree to our <a href="/privacy-policy">Privacy Policy</a>
+    </div>
 
 </body>
 
@@ -95,10 +90,10 @@
     const passwordField = document.getElementById("password");
     if (passwordField.type === "password") {
       passwordField.type = "text";
-      this.innerText = "🙈"; // Hide icon
+      this.innerText = "🙈";
     } else {
       passwordField.type = "password";
-      this.innerText = "👁️"; // Show icon
+      this.innerText = "👁️";
     }
   });
 
@@ -106,10 +101,10 @@
     const passwordField = document.getElementById("confirmpassword");
     if (passwordField.type === "password") {
       passwordField.type = "text";
-      this.innerText = "🙈"; // Hide icon
+      this.innerText = "🙈";
     } else {
       passwordField.type = "password";
-      this.innerText = "👁️"; // Show icon
+      this.innerText = "👁️";
     }
   });
 

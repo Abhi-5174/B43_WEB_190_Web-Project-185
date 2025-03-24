@@ -8,15 +8,22 @@ const searchRouter = require("./search.routes");
 const othersRouter = require("./others.routes");
 const isAdmin = require("../middlewares/checkAdmin");
 const isAuthenticated = require("../middlewares/isAuthenticated");
+const Pincode = require("../models/Pincode");
 
 const router = express.Router();
 
-router.get("/", isAuthenticated, (req, res) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   // For admin
   if (req.user && req.user.email == process.env.ADMIN_EMAIL) {
     return res.redirect("/admin/1111");
   }
-  return res.render("homepage", { user: req.user || null });
+  try {
+    const pincodes = await Pincode.find();
+
+    return res.render("homepage", { user: req.user || null, pincodes });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.use("/auth", authRouter);

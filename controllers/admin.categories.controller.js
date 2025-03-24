@@ -1,0 +1,145 @@
+const Category = require("../models/Category");
+const deleteImage = require("../utils/fileUtils");
+
+module.exports.getCategoriesPage = async (req, res) => {
+  const { pass } = req.params;
+  if (!pass || pass !== "1111") {
+    return res.redirect(
+      "/admin/1111?error=" + encodeURIComponent("Auth password is required")
+    );
+  }
+
+  try {
+    const categories = await Category.find();
+
+    res.render("pages/admin/categories", { categories });
+  } catch (error) {
+    return res.redirect(
+      "/admin/1111?error=" + encodeURIComponent(error.message)
+    );
+  }
+};
+
+module.exports.getAddCategoryPage = async (req, res) => {
+  const { pass } = req.params;
+  if (!pass || pass !== "1111") {
+    return res.redirect(
+      "/admin/1111?error=" + encodeURIComponent("Auth password is required")
+    );
+  }
+
+  res.render("pages/admin/addcategory");
+};
+
+module.exports.postAddCategory = async (req, res, next) => {
+  const { pass } = req.params;
+  if (!pass || pass !== "1111") {
+    const err = new Error("Access denied!");
+    req.previous_url = "/admin/add-category/1111";
+    return next(err);
+  }
+
+  try {
+    const { name, discount } = req.body;
+    const imagePath = req.file ? "/uploads/" + req.file.filename : "";
+
+    const newCategory = new Category({
+      name,
+      discount,
+      image: imagePath,
+    });
+
+    await newCategory.save();
+
+    res.redirect("/admin/categories/1111");
+  } catch (error) {
+    res.redirect(
+      "/admin/add-category/1111?error=" + encodeURIComponent(error.message)
+    );
+  }
+};
+
+module.exports.getEditCategoryPage = async (req, res, next) => {
+  const { id, pass } = req.params;
+  if (!pass || pass !== "1111" || !id) {
+    return res.redirect(
+      "/admin/categories/1111?error=" +
+        encodeURIComponent("User ID and Auth password is required")
+    );
+  }
+
+  try {
+    const category = await Category.findById(id);
+
+    res.render("pages/admin/editcategory", { category });
+  } catch (error) {
+    req.previous_url = "/admin/categories/1111";
+    next(error);
+  }
+};
+
+module.exports.postEditCategory = async (req, res, next) => {
+  const { id, pass } = req.params;
+  if (!pass || pass !== "1111" || !id) {
+    return res.redirect(
+      "/admin/categories/1111?error=" +
+        encodeURIComponent("User ID and Auth password is required")
+    );
+  }
+  try {
+    const { name, discount } = req.body;
+
+    const category = await Category.findById(id);
+
+    if (!category) {
+      return res.redirect(
+        "/admin/categories/1111?error=" +
+          encodeURIComponent("category not found")
+      );
+    }
+
+    let imagePath = category.image;
+
+    if (req.file) {
+      imagePath = "/uploads/" + req.file.filename;
+
+      deleteImage(category.image);
+    }
+
+    // Update category
+    category.name = name;
+    category.discount = discount;
+    category.image = imagePath;
+
+    await category.save();
+
+    res.redirect("/admin/categories/1111");
+  } catch (error) {
+    return res.redirect(
+      "/admin/categories/1111?error=" + encodeURIComponent(error.message)
+    );
+  }
+};
+
+module.exports.deleteCategory = async (req, res, next) => {
+  const { id, pass } = req.params;
+  if (!pass || pass !== "1111" || !id) {
+    return res.redirect(
+      "/admin/categories/1111?error=" +
+        encodeURIComponent("User ID and Auth password is required")
+    );
+  }
+  try {
+    const category = await Category.findByIdAndDelete(id);
+
+    if (category.image) {
+      deleteImage(category.image);
+    }
+
+    res.redirect("/admin/categories/1111");
+  } catch (error) {
+    return res.redirect(
+      "/admin/categories/1111?error=" + encodeURIComponent(error.message)
+    );
+  }
+};

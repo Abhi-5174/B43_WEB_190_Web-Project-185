@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="/css/showproducts.css" />
+</head>
+
+<body>
+
+    <!-- Header -->
+    <%- include('../partials/header') %>
+
+        <div id="rt">
+            <h2>
+                <%= category ? category.name : 'All Categories' %>
+            </h2>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <p style="top: 10px;">Sort By:</p>
+                <select name="sort" id="sort">
+                    <option value="popu" class="opt">Popularity</option>
+                    <option value="low" class="opt">Price Low to High</option>
+                    <option value="high" class="opt">Price High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="device">
+
+            <% if (products.length> 0) { %>
+                <% products.forEach((product, x)=> { %>
+                    <div id="jav" onclick="window.location.href='/others/hcareproduct/product/<%= product._id %>'">
+                        <img src="<%= product.image %>" class="boximg" />
+                        <h3 id="tag<%= x %>" class="boxtag">
+                            <%= product.name %>
+                        </h3>
+                        <h3 id="price<%= x %>" class="boxprice">₹<%= product.price %> Only</h3>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <p style="text-align: center; font-size: 18px; color: gray; margin-top: 20px;">
+                                No products available in this category.
+                            </p>
+                            <% } %>
+        </div>
+
+        <!-- Footer -->
+        <hr />
+        <%- include('../partials/footer') %>
+
+</body>
+
+</html>

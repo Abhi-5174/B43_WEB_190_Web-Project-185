@@ -7,12 +7,15 @@
   <title>Search Results...</title>
 
   <!-- Stylesheets -->
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/productdetails.css" />
   <link rel="stylesheet" href="css/search.css" />
 </head>
 
 <body>
 
-  <%- include('../partials/header') %> <!-- Include header -->
+  <!-- Header -->
+  <%- include('../partials/header') %>
 
     <div class="search-page" style="padding: 5px 20px;">
       <h2>Search Results for "<%= query %>"</h2>
@@ -22,52 +25,62 @@
         <% } else { %>
           <div class="search-results">
             <% results.forEach(product=> { %>
-              <div class="srch_cont1">
-                <div class="srch_img1">
-                  <img src="<%= product.image %>" alt="<%= product.name %>" />
+              <main class="divide"
+                style="box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;">
+
+                <div>
+                  <img src="<%= `${product.image}` %>" alt="<%= product.name %>">
                 </div>
-                <div class="srch_para1">
-                  <p>
+
+                <div class="add_cart2">
+                  <h2 id="tabname">
                     <%= product.name %>
+                  </h2>
+                  <p id="tabcompany">By <%= product.manufacturer %>
                   </p>
-                  <p>By <%= product.manufacturer %>
-                  </p>
-                  <p>
-                    <%= product.quantity %>
-                  </p>
-                  <div class="srch_bar1">
-                    <span><strong>₹<%= product.price.toFixed(2) %>*</strong></span>
-                    <span>MRP <strike>₹<%= product.mrp.toFixed(2) %></strike></span>
-                    <span class="srch_bar12">Save <%= product.discount %>%</span>
-                    <span>
-                      <button type="button" onclick="addToCart('<%= product._id %>')">Add to Cart</button>
-                    </span>
-                  </div>
+                  <h5 class="p10" id="stock">
+                    <%= product.quantity> 0 ? "In Stock" : "Out of Stock" %>
+                  </h5>
+
+                  <% if(product.quantity && product.quantity> 0) { %>
+                    <!-- Quantity Selector -->
+                    <label for="quantity">Quantity:</label>
+                    <select id="quantity">
+                      <% for(let i=1; i <=10; i++) { %>
+                        <option value="<%= i %>">
+                          <%= i %>
+                        </option>
+                        <% } %>
+                    </select>
+                    <% } %>
+
+                      <div class="add_insite">
+                        <h2 id="actual">₹<%= product.price.toFixed(2) %>*</h2>
+                        <p>MRP</p>
+                        <p class="p2" id="original">₹<%= product.mrp.toFixed(2) %>
+                        </p>
+                        <h5 id="taboff">
+                          <%= product.discount %>% OFF
+                        </h5>
+                      </div>
+
+                      <h6>Inclusive of all taxes</h6>
+                      <button type="button"
+                        onclick="(location.href=`/carts/add-to-cart/<%= product._id %>?quantity=${document.getElementById('quantity')}`)"
+                        id="carted">
+                        Add To Cart
+                      </button>
                 </div>
-              </div>
+
+              </main>
               <% }); %>
           </div>
           <% } %>
     </div>
 
-    <br>
+    <!-- Footer -->
     <hr>
-    <%- include('../partials/footer') %> <!-- Include footer -->
-
-      <script>
-        function addToCart(productId) {
-          let quantity = 1;
-          fetch('/carts/add-to-cart', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId, quantity })
-          })
-            .then(response => response.json())
-            .then(data => alert(data.message))
-            .catch(error => console.error('Error:', error));
-        }
-      </script>
-
+    <%- include('../partials/footer') %>
 
 </body>
 

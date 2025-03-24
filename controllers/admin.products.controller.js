@@ -1,4 +1,6 @@
+const Category = require("../models/Category");
 const Product = require("../models/Product");
+const deleteImage = require("../utils/fileUtils");
 
 module.exports.getProductsPage = async (req, res, next) => {
   const { pass } = req.params;
@@ -7,7 +9,7 @@ module.exports.getProductsPage = async (req, res, next) => {
     return next(err);
   }
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate("category");
 
     res.render("pages/admin/products", { products });
   } catch (error) {
@@ -24,7 +26,14 @@ module.exports.getAddProductPage = async (req, res, next) => {
     return next(err);
   }
 
-  res.render("pages/admin/addproduct");
+  try {
+    const categories = await Category.find();
+
+    res.render("pages/admin/addproduct", { categories });
+  } catch (error) {
+    req.previous_url = "/admin/1111";
+    next(error);
+  }
 };
 
 module.exports.postAddProducts = async (req, res, next) => {
@@ -35,7 +44,8 @@ module.exports.postAddProducts = async (req, res, next) => {
   }
 
   try {
-    const { name, manufacturer, quantity, price, mrp, discount } = req.body;
+    const { name, manufacturer, quantity, price, mrp, discount, category } =
+      req.body;
     const imagePath = req.file ? "/uploads/" + req.file.filename : "";
 
     if (mrp < price) {
@@ -45,7 +55,7 @@ module.exports.postAddProducts = async (req, res, next) => {
       );
     }
 
-    const newMedicine = new Product({
+    const newProduct = new Product({
       name,
       manufacturer,
       quantity,
@@ -53,9 +63,10 @@ module.exports.postAddProducts = async (req, res, next) => {
       mrp,
       discount,
       image: imagePath,
+      category,
     });
 
-    await newMedicine.save();
+    await newProduct.save();
 
     res.redirect("/admin/products/1111");
   } catch (error) {
@@ -74,9 +85,17 @@ module.exports.getEditProductPage = async (req, res, next) => {
     );
   }
 
-  const product = await Product.findById(id);
+  try {
+    const categories = await Category.find();
 
-  res.render("pages/admin/editproduct", { product });
+    const product = await Product.findById(id);
+
+    res.render("pages/admin/editproduct", { product, categories });
+  } catch (error) {
+    return res.redirect(
+      "/admin/products/1111?error=" + encodeURIComponent(error.message)
+    );
+  }
 };
 
 module.exports.postEditProduct = async (req, res, next) => {
@@ -88,7 +107,8 @@ module.exports.postEditProduct = async (req, res, next) => {
     );
   }
   try {
-    const { name, manufacturer, quantity, price, mrp, discount } = req.body;
+    const { name, manufacturer, quantity, price, mrp, discount, category } =
+      req.body;
 
     const product = await Product.findById(req.params.id);
 
@@ -103,10 +123,7 @@ module.exports.postEditProduct = async (req, res, next) => {
     if (req.file) {
       imagePath = "/uploads/" + req.file.filename;
 
-      // Delete old image file if it exists
-      if (product.image && fs.existsSync("public" + product.image)) {
-        fs.unlinkSync("public" + product.image);
-      }
+      deleteImage(product.image);
     }
 
     // Update Product
@@ -117,6 +134,7 @@ module.exports.postEditProduct = async (req, res, next) => {
     product.mrp = mrp;
     product.discount = discount;
     product.image = imagePath;
+    product.category = category;
 
     await product.save();
 
@@ -138,6 +156,10 @@ module.exports.deleteProducts = async (req, res, next) => {
   }
   try {
     const product = await Product.findByIdAndDelete(id);
+
+    if (product && product.image) {
+      deleteImage(product.image);
+    }
 
     res.redirect("/admin/products/1111");
   } catch (error) {

@@ -14,59 +14,48 @@
     <%- include('./partials/sidebar') %>
 
         <div class="main-content">
-
             <!-- Users List -->
             <div class="mt-4">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                    <h3>All Products</h3>
-                    <a href="/admin/add-product/1111"
-                        style="padding: 4px 20px; background-color: red; text-decoration: none; color: white;">Add Product</a>
+                    <h3>All Categories</h3>
+                    <a href="/admin/add-category/1111"
+                        style="padding: 4px 20px; background-color: red; text-decoration: none; color: white;">Add
+                        Category</a>
                 </div>
                 <table class="table table-bordered table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
+                            <th>CATEGORY NAME</th>
                             <th>IMAGE</th>
-                            <th>Name</th>
-                            <th>MANUFACTURER</th>
-                            <th>QUANTITY</th>
-                            <th>PRICE</th>
-                            <th>MRP</th>
                             <th>DISCOUNT</th>
-                            <th>CATEGORY</th>
+                            <th>CREATED AT</th>
+                            <th>UPDATED AT</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% products.forEach(product=> { %>
+                        <% categories.forEach(category=> { %>
                             <tr>
                                 <td>
-                                    <img src="<%= product.image %>" alt="Product Image" width="60">
+                                    <%= category.name %>
                                 </td>
                                 <td>
-                                    <%= product.name %>
+                                    <img src="<%= category.image %>" alt="Category Image"
+                                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
                                 </td>
                                 <td>
-                                    <%= product.manufacturer %>
+                                    <%= category.discount ? category.discount + '%' : 'N/A' %>
                                 </td>
                                 <td>
-                                    <%= product.quantity %>
+                                    <%= new Date(category.createdAt).toLocaleString() %>
                                 </td>
                                 <td>
-                                    <%= product.price %>
+                                    <%= new Date(category.updatedAt).toLocaleString() %>
                                 </td>
                                 <td>
-                                    <%= product.mrp %>
-                                </td>
-                                <td>
-                                    <%= product.discount %>
-                                </td>
-                                <td>
-                                    <%= product.category.name %>
-                                </td>
-                                <td>
-                                    <a href="/admin/edit-product/<%= product._id %>/1111"
+                                    <a href="/admin/edit-category/<%= category._id %>/1111"
                                         class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="/admin/delete-product/<%= product._id %>/1111"
+                                    <a href="/admin/delete-category/<%= category._id %>/1111"
                                         class="btn btn-sm btn-danger"
                                         onclick="return confirm('Are you sure?')">Delete</a>
                                 </td>
@@ -76,6 +65,7 @@
                 </table>
             </div>
         </div>
+
 
 </body>
 

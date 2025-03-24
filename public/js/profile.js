@@ -1,8 +1,9 @@
 function toggleEditForm() {
-  document.getElementById("editProfileForm").style.display =
-    document.getElementById("editProfileForm").style.display === "none"
-      ? "block"
-      : "none";
+  const editForm = document.getElementById("editProfileForm");
+  if (editForm) {
+    editForm.style.display =
+      editForm.style.display === "none" ? "block" : "none";
+  }
 }
 
 function previewImage(event) {
@@ -24,33 +25,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewImage = document.getElementById("previewImage");
   const imagePreviewModal = document.getElementById("imagePreviewModal");
   const closePreview = document.querySelector(".close-preview");
+  const changePhotoBtn = document.getElementById("changePhotoBtn");
+  const deletePhotoBtn = document.querySelector(".delete-btn");
+  const profileButtons = document.querySelector(".profile-buttons");
 
-  // 📌 Show Image in Large Preview Box
-  profilePic.addEventListener("click", () => {
-    imagePreviewModal.style.display = "block";
-  });
+  if (profilePic && imagePreviewModal) {
+    profilePic.addEventListener("click", () => {
+      imagePreviewModal.style.display = "block";
+      if (profileButtons) profileButtons.style.display = "none"; // Hide buttons
+    });
+  }
 
-  // 📌 Close Image Preview
-  closePreview.addEventListener("click", () => {
-    imagePreviewModal.style.display = "none";
-  });
+  if (closePreview && imagePreviewModal) {
+    closePreview.addEventListener("click", () => {
+      imagePreviewModal.style.display = "none";
+      if (profileButtons) profileButtons.style.display = "flex"; // Show buttons again
+    });
+  }
 
-  // 📌 When User Clicks Pencil Icon, Open File Selector
-  document.querySelector(".edit-icon").addEventListener("click", (event) => {
-    event.preventDefault();
-    fileInput.click();
-  });
+  if (changePhotoBtn && fileInput) {
+    changePhotoBtn.addEventListener("click", () => {
+      fileInput.click();
+    });
+  }
 
-  // 📌 When File is Selected, Update Profile Picture Preview
-  fileInput.addEventListener("change", (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = function (e) {
-        profilePic.src = e.target.result;
-        previewImage.src = e.target.result;
-        saveBtn.style.display = "block"; // Show Save Button
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  });
+  if (fileInput) {
+    fileInput.addEventListener("change", (event) => {
+      document
+        .querySelectorAll(".toHide")
+        .forEach((e) => (e.style.display = "none"));
+
+      if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          profilePic.src = e.target.result;
+          previewImage.src = e.target.result;
+          saveBtn.style.display = "block"; // Show Save Button
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    });
+  }
 });

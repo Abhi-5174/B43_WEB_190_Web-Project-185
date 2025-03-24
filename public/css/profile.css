@@ -8,33 +8,12 @@
     text-align: center;
 }
 
-.profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #007bff;
-    cursor: pointer;
-}
-
-.edit-form {
-    display: none;
-}
-
-.btn-edit {
-    cursor: pointer;
-    font-size: 16px;
-    color: #007bff;
-}
-
-.profile-container {
-    text-align: center;
-    margin: 20px auto;
-}
-
+/* Profile Picture Section */
 .profile-pic-container {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .profile-pic {
@@ -46,23 +25,40 @@
     cursor: pointer;
 }
 
-.edit-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: #4CAF50;
+/* Buttons Container */
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 250px;
+    margin-top: 10px;
+}
+
+/* Styling for Add / Change Photo Button */
+#changePhotoBtn {
+    background: #007bff;
     color: white;
-    padding: 5px;
-    border-radius: 50%;
+    border: none;
+    padding: 8px 12px;
     cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin-right: 5px;
 }
 
-.edit-icon i {
-    font-size: 14px;
-    width: 20px;
-    height: 20px;
+/* Styling for Delete Button */
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin-left: 5px;
 }
 
+/* Image Preview Modal */
 .image-preview-modal {
     display: none;
     position: fixed;
@@ -91,6 +87,7 @@
     right: 15px;
 }
 
+/* Save Button */
 .save-btn {
     background: #4CAF50;
     color: white;
@@ -99,5 +96,9 @@
     cursor: pointer;
     border-radius: 5px;
     margin-top: 10px;
+    display: none;
+}
+
+.image-preview-modal.active~.profile-buttons {
     display: none;
 }

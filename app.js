@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const homeRouter = require("./routes/index");
+const checkPincode = require("./middlewares/checkPincode");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -21,6 +22,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Google Auth
 app.use(passport.initialize());
+
+app.use(checkPincode);
 
 app.use("/", homeRouter);
 
