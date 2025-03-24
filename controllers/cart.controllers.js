@@ -57,23 +57,23 @@ module.exports.getCartPage = async (req, res, next) => {
 
 module.exports.addToCart = async (req, res, next) => {
   const { productId } = req.params;
-  const { quantity } = req.query;
+  const quantity = parseInt(req.query.quantity) || 1;
 
   try {
     if (req.user) {
-      // User is logged in, update MongoDB cart
+      // Logged-in user: Update MongoDB cart
       let cart = await Cart.findOne({ userId: req.user._id });
 
       if (!cart) {
         cart = new Cart({ userId: req.user._id, items: [] });
       }
 
-      const existingItem = cart.items.find((item) =>
+      const existingItemIndex = cart.items.findIndex((item) =>
         item.productId.equals(productId)
       );
 
-      if (existingItem) {
-        existingItem.quantity += quantity || 1;
+      if (existingItemIndex !== -1) {
+        cart.items[existingItemIndex].quantity += quantity || 1;
       } else {
         cart.items.push({ productId, quantity });
       }
@@ -81,17 +81,20 @@ module.exports.addToCart = async (req, res, next) => {
       await cart.save();
       return res.redirect("/carts");
     } else {
-      // Guest user, store in cookies
-      let cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
+      // Guest user: Store cart in cookies
+      let guestCart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
 
-      const existingItem = cart.find((item) => item.productId === productId);
+      const existingItem = guestCart.find(
+        (item) => item.productId === productId
+      );
+
       if (existingItem) {
         existingItem.quantity += quantity || 1;
       } else {
-        cart.push({ productId, quantity });
+        guestCart.push({ productId, quantity });
       }
 
-      res.cookie("cart", JSON.stringify(cart), {
+      res.cookie("cart", JSON.stringify(guestCart), {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
