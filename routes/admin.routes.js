@@ -73,7 +73,7 @@ router.get("/delete-product/:id/:pass", adminProductsController.deleteProducts);
 // Admin Pincode
 router.get("/pincodes/:pass", adminPincodesController.getPincodePage);
 
-router.get("/add-pincode/:pass", adminPincodesController.postAddPincode);
+router.get("/add-pincode/:pass", adminPincodesController.getAddPincodePage);
 
 router.post("/add-pincode/:pass", adminPincodesController.postAddPincode);
 
