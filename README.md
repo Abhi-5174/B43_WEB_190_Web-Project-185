@@ -80,6 +80,7 @@ npm install
 # Set up environment variables
 cp .env.example .env
 # Update .env with your MongoDB URL, API keys, etc.
+# Make sure Redis is runnung.
 
 # Start the server
 npm run start
