@@ -1,6 +1,6 @@
 const express = require("express");
 
-const upload = require("../config/multer");
+const {upload, cloudinary} = require("../config/multer");
 const adminController = require("../controllers/admin.controllers");
 const adminUsersController = require("../controllers/admin.users.controller");
 const adminProductsController = require("../controllers/admin.products.controller");

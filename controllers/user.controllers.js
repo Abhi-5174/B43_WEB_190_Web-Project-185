@@ -1,5 +1,3 @@
-const path = require("path");
-
 const User = require("../models/User");
 const deleteImage = require("../utils/fileUtils");
 const Pincode = require("../models/Pincode");
@@ -25,7 +23,12 @@ module.exports.uploadPhoto = async (req, res, next) => {
       });
     }
 
-    req.user.photo = req.file.filename;
+    if (process.env.NODE_ENV === "production") {
+      req.user.profile_image = req.file.path;
+    } else {
+      req.user.profile_image = "/uploads/" + req.file.filename;
+    }
+
     await req.user.save();
 
     res.redirect("/users/profile");
@@ -38,16 +41,14 @@ module.exports.uploadPhoto = async (req, res, next) => {
 module.exports.deleteProfileImage = async (req, res) => {
   try {
     const user = req.user;
-    if (!user || !user.photo) return res.redirect("/users/profile");
+    if (!user || !user.profile_image) return res.redirect("/users/profile");
 
-    if (user.photo) {
-      const imagePath = path.join(__dirname, "..", "public", user.photo);
-
-      deleteImage(imagePath);
+    if (user.profile_image) {
+      deleteImage(user.profile_image);
     }
 
     // Remove image from DB
-    user.photo = null;
+    user.profile_image = null;
     await user.save();
 
     res.redirect("/users/profile");

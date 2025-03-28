@@ -41,7 +41,13 @@ module.exports.postAddCategory = async (req, res, next) => {
 
   try {
     const { name, discount } = req.body;
-    const imagePath = req.file ? "/uploads/" + req.file.filename : "";
+    let imagePath;
+
+    if (process.env.NODE_ENV === "production") {
+      imagePath = req.file.path;
+    } else {
+      imagePath = "/uploads/" + req.file.filename;
+    }
 
     const newCategory = new Category({
       name,
@@ -98,18 +104,19 @@ module.exports.postEditCategory = async (req, res, next) => {
       );
     }
 
-    let imagePath = category.image;
-
     if (req.file) {
-      imagePath = "/uploads/" + req.file.filename;
-
       deleteImage(category.image);
+
+      if (process.env.NODE_ENV === "production") {
+        category.image = req.file.path;
+      } else {
+        category.image = "/uploads/" + req.file.filename;
+      }
     }
 
     // Update category
     category.name = name;
     category.discount = discount;
-    category.image = imagePath;
 
     await category.save();
 
@@ -132,7 +139,7 @@ module.exports.deleteCategory = async (req, res, next) => {
   try {
     const category = await Category.findByIdAndDelete(id);
 
-    if (category.image) {
+    if (category && category.image) {
       deleteImage(category.image);
     }
 

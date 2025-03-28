@@ -1,6 +1,6 @@
 const express = require("express");
 
-const upload = require("../config/multer");
+const { upload, cloudinary } = require("../config/multer");
 const userController = require("../controllers/user.controllers");
 const authController = require("../controllers/auth.controllers");
 const isAuthenticated = require("../middlewares/isAuthenticated");
@@ -26,7 +26,7 @@ router.post("/reset-password/:token", authController.postResetPassword);
 router.post(
   "/upload",
   isAuthenticated,
-  upload.single("photo"),
+  upload.single("profile_image"),
   userController.uploadPhoto
 );
 

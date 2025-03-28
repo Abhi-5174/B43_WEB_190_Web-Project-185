@@ -62,47 +62,49 @@
 
           <div class="cart-container">
             <% cart.forEach(({productId, quantity, _id})=> { %>
-              <div class="parent cart-item">
-                <div class="fximg cart-item-img">
-                  <img src="<%= productId.image %>" alt="<%= productId.name %>">
-                </div>
-                <div class="fxtxt cart-item-info">
-                  <h4 class="comp">
-                    <%= productId.name %>
-                  </h4>
-                  <p class="del manufacturer">By <%= productId.manufacturer %>
-                  </p>
-                  <div class="both">
-                    <p class="quantity">
-                      Quantity:
-                      <select class="qty" data-price="<%= productId.price %>" data-id="<%= productId._id %>">
-                        <% for (let i=1; i <=10; i++) { %>
-                          <option value="<%= i %>" <%=quantity===i ? "selected" : "" %>><%= i %>
-                          </option>
-                          <% } %>
-                      </select>
+              <% if(productId) { %>
+                <div class="parent cart-item">
+                  <div class="fximg cart-item-img">
+                    <img src="<%= productId.image %>" alt="<%= productId.name %>">
+                  </div>
+                  <div class="fxtxt cart-item-info">
+                    <h4 class="comp">
+                      <%= productId.name %>
+                    </h4>
+                    <p class="del manufacturer">By <%= productId.manufacturer %>
                     </p>
-                    <div class="rig">
-                      <h5>
-                        <%= productId.discount %>% OFF
-                      </h5>
+                    <div class="both">
+                      <p class="quantity">
+                        Quantity:
+                        <select class="qty" data-price="<%= productId.price %>" data-id="<%= productId._id %>">
+                          <% for (let i=1; i <=10; i++) { %>
+                            <option value="<%= i %>" <%=quantity===i ? "selected" : "" %>><%= i %>
+                            </option>
+                            <% } %>
+                        </select>
+                      </p>
+                      <div class="rig">
+                        <h5>
+                          <%= productId.discount %>% OFF
+                        </h5>
+                      </div>
+                    </div>
+                    <div class="ord">
+                      <p class="price act">₹<%= productId.price.toFixed(2) %>
+                      </p>
+                      <input type="hidden" id="pricePerUnit" value="<%= productId.price %>">
+                      <p class="mrp">MRP: <strike>₹<%= productId.mrp.toFixed(2) %></strike></p>
                     </div>
                   </div>
-                  <div class="ord">
-                    <p class="price act">₹<%= productId.price.toFixed(2) %>
-                    </p>
-                    <input type="hidden" id="pricePerUnit" value="<%= productId.price %>">
-                    <p class="mrp">MRP: <strike>₹<%= productId.mrp.toFixed(2) %></strike></p>
+                  <div class="cart-item-actions">
+                    <button class="remove-btn"
+                      onclick="window.location.href='/carts/remove-from-cart/<%= productId._id %>'">
+                      <i class="fa fa-trash"></i> Remove
+                    </button>
                   </div>
                 </div>
-                <div class="cart-item-actions">
-                  <button class="remove-btn"
-                    onclick="window.location.href='/carts/remove-from-cart/<%= productId._id %>'">
-                    <i class="fa fa-trash"></i> Remove
-                  </button>
-                </div>
-              </div>
-              <% }) %>
+                <% } %>
+                  <% }) %>
           </div>
 
           <!-- Cart Summary -->
@@ -112,12 +114,11 @@
               <%= cart.length %>
             </p>
             <p><strong>Total Price:</strong> ₹<span id="totalPrice"> ₹<%= cart.reduce((sum, item)=> sum +
-                  item.productId.price, 0) %> </span></p>
+                  item.productId?.price, 0) %> </span></p>
             <% if (cart.length> 0) { %>
               <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
               <% } %>
           </div>
-
 
           <% } %>
 

@@ -7,7 +7,7 @@ module.exports.getAllUsers = async (req, res, next) => {
     return next(err);
   }
   try {
-    const users = await User.find().select("-password");
+    const users = await User.find();
 
     res.render("pages/admin/users", { users });
   } catch (error) {

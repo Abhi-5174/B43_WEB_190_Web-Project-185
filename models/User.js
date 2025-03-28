@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 8 characters"],
       select: false, // Prevents password from being returned in queries
     },
-    photo: {
+    profile_image: {
       type: String,
     },
     address: {

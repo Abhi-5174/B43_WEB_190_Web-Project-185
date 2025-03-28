@@ -26,9 +26,6 @@
     </div> -->
 
     <div class="select">
-      <!-- Search Box -->
-      <input type="text" id="pincodeSearch" placeholder="Search Pincode..." style="display: none;"
-        oninput="filterPincodes()">
 
       <!-- Dropdown -->
       <select id="pincodeSelect" style="
@@ -42,7 +39,8 @@
   font-weight: bold;
   max-width: 300px;
       ">
-        <option value="" id="pinhere">Select Pincode</option>
+        <option value="null">Select Pincode</option>
+
         <% pincodes.forEach(pin=> { %>
           <option value="<%= pin._id %>">
             <%= pin.pincode %>
@@ -70,7 +68,7 @@
       disabled="<%= user ? false : true %>">
 
       <img style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
-        src="<%= user && user.photo ? `/uploads/${user.photo}` : '/images/default-profile.png' %>"
+        src="<%= user && user.profile_image ? user.profile_image : '/images/default-profile.png' %>"
         alt="User-Profile-Image" onerror="this.src='/images/default-profile.png';">
     </div>
   </div>
@@ -150,8 +148,12 @@
       })
   });
 
+  pincodeSelect.addEventListener("click", function () {
+    document.getElementById('pincodeSearch').style.display = "block";
+  });
+
   pincodeSelect.addEventListener("change", async function () {
-    const selectedPincode = this.value;
+    const selectedPincode = this.value || null;
 
     fetch("/others/set-pincode", {
       method: "POST",

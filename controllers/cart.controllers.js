@@ -36,7 +36,9 @@ module.exports.getCartPage = async (req, res, next) => {
             item.productId?._id?.toString() || item.productId.toString();
           const product = products.find((p) => p._id.toString() === productId);
 
-          return product ? { product, quantity: item.quantity } : null;
+          return product
+            ? { productId: product, quantity: item.quantity }
+            : null;
         })
         .filter(Boolean); // Remove null values
     }
@@ -131,7 +133,6 @@ module.exports.removeFromCart = async (req, res, next) => {
       let cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : null;
 
       if (!cart) {
-        console.log("No carts");
         return res.redirect("/carts");
       }
 

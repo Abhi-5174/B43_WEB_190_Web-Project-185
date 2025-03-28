@@ -37,8 +37,7 @@
                                 </td>
                                 <td>
                                     <img style="width: 45px; height: 45px; border-radius: 50%;"
-                                        src="<%= user.photo ? `/uploads/${user.photo}` : '/images/default-profile.png' %>"
-                                        alt="User">
+                                        src="<%= user.photo ? user.photo : '/images/default-profile.png' %>" alt="User">
                                 </td>
                                 <td>
                                     <%= user.name %>

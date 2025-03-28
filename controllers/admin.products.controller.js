@@ -46,7 +46,13 @@ module.exports.postAddProducts = async (req, res, next) => {
   try {
     const { name, manufacturer, quantity, price, mrp, discount, category } =
       req.body;
-    const imagePath = req.file ? "/uploads/" + req.file.filename : "";
+    let imagePath;
+
+    if (process.env.NODE_ENV === "production") {
+      imagePath = req.file.path;
+    } else {
+      imagePath = "/uploads/" + req.file.filename;
+    }
 
     if (mrp < price) {
       return res.redirect(
@@ -118,12 +124,14 @@ module.exports.postEditProduct = async (req, res, next) => {
       );
     }
 
-    let imagePath = product.image;
-
     if (req.file) {
-      imagePath = "/uploads/" + req.file.filename;
-
       deleteImage(product.image);
+
+      if (process.env.NODE_ENV === "production") {
+        product.image = req.file.path;
+      } else {
+        product.image = "/uploads/" + req.file.filename;
+      }
     }
 
     // Update Product
@@ -133,7 +141,6 @@ module.exports.postEditProduct = async (req, res, next) => {
     product.price = price;
     product.mrp = mrp;
     product.discount = discount;
-    product.image = imagePath;
     product.category = category;
 
     await product.save();

@@ -1,72 +1,139 @@
-# B43_WEB_190_Web-Project-185
+# PharmEasy Clone
 
 ## Introduction
-A brief introduction of your project goes here. You may want to cover the purpose of your project, its core functionality, and what problems it solves.
+
+The rise of digital health services has made online pharmacies a crucial element in the healthcare industry, providing patients with easy access to essential medicines and healthcare products from the comfort of their homes. A well-designed online pharmacy platform not only ensures convenience but also enhances user trust through seamless interactions and secure handling of sensitive information like prescriptions and order details.
 
 ## Project Type
-Frontend | Backend | Fullstack
 
-## Deplolyed App
-Frontend: https://deployed-site.whatever
-Backend: https://deployed-site.whatever
-Database: https://deployed-site.whatever
+**Fullstack** (MERN Stack with EJS-based server-side rendering)
+
+## Deployed App
+
+Frontend: [https://deployed-site.whatever](https://deployed-site.whatever)
+Backend: [https://api.deployed-site.whatever](https://api.deployed-site.whatever)
 
 ## Directory Structure
+
+```
 my-app/
-├─ backend/
-├─ frontend/
-│  ├─ ...
+├─ config/            # Configuration files (DB, authentication, etc.)
+├─ controllers/       # Route handlers and business logic
+├─ middlewares/       # Middleware functions (auth, validation, etc.)
+├─ models/            # Mongoose schemas
+├─ public/            # Static assets (CSS, JS, images, etc.)
+├─ routes/            # Express route definitions
+├─ utils/             # Utility functions
+├─ views/             # EJS templates for server-side rendering
+├─ app.js             # Main application entry point
+├─ package-lock.json  # Auto-generated dependency lock file
+├─ package.json       # Project dependencies and metadata
+├─ README.md          # Documentation
+```
 
-## Video Walkthrough of the project
-Attach a very short video walkthough of all of the features [ 1 - 3 minutes ]
+## Video Walkthrough of the Project
 
-## Video Walkthrough of the codebase
-Attach a very short video walkthough of codebase [ 1 - 5 minutes ]
+_A very short video walkthrough (1-3 minutes) showcasing the core features._
+
+## Video Walkthrough of the Codebase
+
+_A very short video walkthrough (1-5 minutes) explaining the project structure and key files._
 
 ## Features
-List out the key features of your application.
 
-- Feature 1
-- Feature 2
-- Feature 3
+### **User Panel**
 
-## design decisions or assumptions
-List your design desissions & assumptions
+- User authentication (Google OAuth 2.0, Facebook Login)
+- Search and filter medicines with advanced search
+- Dynamic pricing alerts
+- Order tracking and status updates
+- Health profile management
 
-## Installation & Getting started
-Detailed instructions on how to install, configure, and get the project running. For BE/FS projects, guide the reviewer how to check mongodb schema etc.
+### **Admin Panel**
+
+- Dashboard with total users, orders, and sales analytics
+- Manage products, categories, and discounts
+- Add new pincodes for delivery
+- User management
+
+## Design Decisions & Assumptions
+
+- **Backend-rendered frontend** using **EJS** to keep things simple and SEO-friendly.
+- **MongoDB as the database** for storing user, product, and order data.
+- **Redis for caching** to enhance performance in real-time operations.
+- **JWT authentication** for secure user sessions.
+- **Multer for file uploads** (prescriptions, product images).
+- **Claudinary** (for images upload)
+
+## Installation & Getting Started
+
+Clone the repository and install dependencies:
 
 ```bash
-npm install my-project
-cd my-project
-npm start
+# Clone the repository
+git clone https://github.com/your-username/pharmeasy-clone.git
+cd pharmeasy-clone
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Update .env with your MongoDB URL, API keys, etc.
+
+# Start the server
+npm run start
 ```
+
+For MongoDB setup, ensure you have a running instance or use MongoDB Atlas.
 
 ## Usage
-Provide instructions and examples on how to use your project.
 
-```bash
-# Example
+1. **Sign Up/Login** using Google OAuth or register manually.
+2. **Search for medicines** and add them to the cart.
+3. **Upload a prescription** (if required) and proceed to checkout.
+
+## Credentials for Testing
+
+```
+Admin Login:
+Email: abckewat@gmail.com
+Password: admin123
+
+User Login:
+Email: alice@gmail.com
+Password: aaaaaaaa
 ```
 
-Include screenshots as necessary.
-
-## Credentials
-Provide user credentials for autheticated pages
-
 ## APIs Used
-If your application relies on external APIs, document them and include any necessary links or references.
+
+- Google OAuth 2.0 for authentication
+- MongoDB Atlas for database storage
+- Claudinary for images uploading
+- Stripe/Razorpay for payments (if applicable)
 
 ## API Endpoints
-In case of Backend Applications provide a list of your API endpoints, methods, brief descriptions, and examples of request/response.
-GET /api/items - retrieve all items
-POST /api/items - create a new item
 
+| Method | Endpoint         | Description                          |
+| ------ | ---------------- | ------------------------------------ |
+| GET    | /api/products    | Get all products                     |
+| POST   | /api/products    | Add a new product (Admin only)       |
+| GET    | /api/cart        | Get user cart details                |
+| POST   | /api/cart/add    | Add item to cart                     |
+| PUT    | /api/cart/update | Update cart item quantity            |
+| DELETE | /api/cart/remove | Remove item from cart                |
+| POST   | /api/checkout    | Process checkout and order placement |
 
 ## Technology Stack
-List and provide a brief overview of the technologies used in the project.
 
-- Node.js
-- Express.js
-- MongoDB
-- Other libraries/modules
+- **Backend**: Node.js, Express.js, MongoDB, Redis
+- **Frontend**: EJS, Bootstrap, Vanilla JavaScript
+- **Authentication**: Google OAuth 2.0, JWT
+- **Real-time Features**: Socket.io
+- **Caching**: Redis
+- **Storage**: Multer for file uploads (prescriptions, images)
+- **Deployment**: DigitalOcean/AWS/Vercel (specify if deployed)
+
+---
+
+### 🚀 This project is actively maintained! Contributions and feedback are welcome.

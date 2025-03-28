@@ -1,4 +1,5 @@
 const Pincode = require("../models/Pincode");
+const redisClient = require("../config/redis");
 
 module.exports.getPincodePage = async (req, res) => {
   const { pass } = req.params;
@@ -36,9 +37,14 @@ module.exports.postAddPincode = async (req, res) => {
   try {
     const { pincode } = req.body;
 
-    await Pincode.create({ pincode });
+    const newPincode = await Pincode.create({ pincode });
 
-    const pincodes = await Pincode.find();
+    const cachedPincodes = await redisClient.get("pincodes");
+    let pincodes = cachedPincodes ? JSON.parse(cachedPincodes) : [];
+
+    pincodes.push(newPincode);
+
+    await redisClient.set("pincodes", JSON.stringify(pincodes), "EX", 3600);
 
     res.render("pages/admin/pincodes", { pincodes });
   } catch (error) {
@@ -58,6 +64,8 @@ module.exports.deletePincode = async (req, res) => {
   }
   try {
     await Pincode.findByIdAndDelete(id);
+
+    await redisClient.del("pincodes");
 
     res.redirect("/admin/pincodes/1111");
   } catch (error) {
