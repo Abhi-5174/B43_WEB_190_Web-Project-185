@@ -9,6 +9,7 @@ const connectDB = require("./config/db");
 const homeRouter = require("./routes/index");
 const checkPincode = require("./middlewares/checkPincode");
 const errorHandler = require("./middlewares/errorHandler");
+const unknownRouteHandler = require("./middlewares/undefinedRoutesHandler");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +29,8 @@ app.use(checkPincode);
 app.use("/", homeRouter);
 
 app.use(errorHandler);
+
+app.use(unknownRouteHandler);
 
 app.listen(PORT, () => {
   connectDB();
