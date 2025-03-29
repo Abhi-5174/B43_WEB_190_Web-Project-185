@@ -1,4 +1,5 @@
 const Category = require("../models/Category");
+const Product = require("../models/Product");
 const deleteImage = require("../utils/fileUtils");
 
 module.exports.getCategoriesPage = async (req, res) => {
@@ -137,6 +138,17 @@ module.exports.deleteCategory = async (req, res, next) => {
     );
   }
   try {
+    const products = await Product.find({ category: id });
+
+    if (products.length > 0) {
+      return res.redirect(
+        "/admin/categories/1111?error=" +
+          encodeURIComponent(
+            `Cannot delete! ${products.length} products are added to this category`
+          )
+      );
+    }
+
     const category = await Category.findByIdAndDelete(id);
 
     if (category && category.image) {

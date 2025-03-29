@@ -162,7 +162,7 @@ module.exports.deleteProducts = async (req, res, next) => {
     );
   }
   try {
-    const product = await Product.findByIdAndDelete(id);
+    const product = await Product.findById(id);
 
     if (product && product.image) {
       deleteImage(product.image);
